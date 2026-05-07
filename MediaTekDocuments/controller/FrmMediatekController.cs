@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using MediaTekDocuments.model;
 using MediaTekDocuments.dal;
+using System;
 
 namespace MediaTekDocuments.controller
 {
@@ -95,6 +96,54 @@ namespace MediaTekDocuments.controller
         public bool CreerExemplaire(Exemplaire exemplaire)
         {
             return access.CreerExemplaire(exemplaire);
+        }
+
+        /// <summary>
+        /// Retourne toutes les étapes de suivi
+        /// </summary>
+        public List<Categorie> GetAllSuivis()
+        {
+            return access.GetAllSuivis();
+        }
+
+        /// <summary>
+        /// Retourne toutes les commandes d'un livre ou DVD
+        /// </summary>
+        public List<CommandeDocument> GetCommandesDocument(string idLivreDvd)
+        {
+            return access.GetCommandesDocument(idLivreDvd);
+        }
+
+        /// <summary>
+        /// Retourne le prochain identifiant disponible pour une commande
+        /// </summary>
+        public string GetNextCommandeId()
+        {
+            return access.GetNextCommandeId();
+        }
+
+        /// <summary>
+        /// Crée une commande dans la BDD
+        /// </summary>
+        public bool CreerCommande(CommandeDocument commande)
+        {
+            return access.CreerCommande(commande);
+        }
+
+        /// <summary>
+        /// Modifie l'étape de suivi d'une commande
+        /// </summary>
+        public bool ModifierSuiviCommande(string idCommande, string idSuivi)
+        {
+            return access.ModifierSuiviCommande(idCommande, idSuivi);
+        }
+
+        /// <summary>
+        /// Supprime une commande (non encore livrée)
+        /// </summary>
+        public bool SupprimerCommande(string idCommande)
+        {
+            return access.SupprimerCommande(idCommande);
         }
     }
 }

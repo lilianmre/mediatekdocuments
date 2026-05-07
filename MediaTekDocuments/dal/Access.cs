@@ -37,6 +37,12 @@ namespace MediaTekDocuments.dal
         private const string POST = "POST";
         /// <summary>
         /// méthode HTTP pour update
+        /// </summary>
+        private const string PUT = "PUT";
+        /// <summary>
+        /// méthode HTTP pour delete
+        /// </summary>
+        private const string DELETE = "DELETE";
 
         /// <summary>
         /// Méthode privée pour créer un singleton
@@ -164,6 +170,101 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
+        /// Retourne toutes les étapes de suivi depuis la BDD
+        /// </summary>
+        /// <returns>Liste d'objets Suivi (via Categorie)</returns>
+        public List<Categorie> GetAllSuivis()
+        {
+            IEnumerable<Suivi> lesSuivis = TraitementRecup<Suivi>(GET, "suivi", null);
+            return new List<Categorie>(lesSuivis);
+        }
+
+        /// <summary>
+        /// Retourne toutes les commandes d'un livre ou DVD
+        /// </summary>
+        /// <param name="idLivreDvd">identifiant du livre ou DVD</param>
+        /// <returns>Liste d'objets CommandeDocument</returns>
+        public List<CommandeDocument> GetCommandesDocument(string idLivreDvd)
+        {
+            String jsonId = convertToJson("idLivreDvd", idLivreDvd);
+            return TraitementRecup<CommandeDocument>(GET, "commandedocument/" + jsonId, null);
+        }
+
+        /// <summary>
+        /// Retourne le prochain identifiant disponible pour une commande
+        /// </summary>
+        /// <returns>Identifiant au format "00001"</returns>
+        public string GetNextCommandeId()
+        {
+            List<NextId> result = TraitementRecup<NextId>(GET, "nextcommandeid", null);
+            if (result != null && result.Count > 0)
+                return result[0].nextId;
+            return "00001";
+        }
+
+        /// <summary>
+        /// Crée une commande : insère dans commande puis dans commandedocument (idSuivi = "en cours")
+        /// </summary>
+        /// <param name="commande">objet CommandeDocument à créer</param>
+        /// <returns>true si les deux insertions ont réussi</returns>
+        public bool CreerCommande(CommandeDocument commande)
+        {
+            String jsonCommande = JsonConvert.SerializeObject(
+                new { id = commande.Id, dateCommande = commande.DateCommande, montant = commande.Montant },
+                new CustomDateTimeConverter()
+            );
+            List<CommandeDocument> r1 = TraitementRecup<CommandeDocument>(POST, "commande", "champs=" + jsonCommande);
+            if (r1 == null) return false;
+
+            String jsonCommandeDoc = JsonConvert.SerializeObject(new
+            {
+                id = commande.Id,
+                nbExemplaire = commande.NbExemplaire,
+                idLivreDvd = commande.IdLivreDvd,
+                idSuivi = "00001"
+            });
+            List<CommandeDocument> r2 = TraitementRecup<CommandeDocument>(POST, "commandedocument", "champs=" + jsonCommandeDoc);
+            return (r2 != null);
+        }
+
+        /// <summary>
+        /// Modifie l'étape de suivi d'une commande
+        /// </summary>
+        /// <param name="idCommande">identifiant de la commande</param>
+        /// <param name="idSuivi">identifiant du nouvel état de suivi</param>
+        /// <returns>true si la modification a réussi</returns>
+        public bool ModifierSuiviCommande(string idCommande, string idSuivi)
+        {
+            String jsonSuivi = convertToJson("idSuivi", idSuivi);
+            List<CommandeDocument> result = TraitementRecup<CommandeDocument>(
+                PUT, "commandedocument/" + idCommande, "champs=" + jsonSuivi
+            );
+            return (result != null);
+        }
+
+        /// <summary>
+        /// Supprime une commande (le trigger BDD supprime aussi dans commandedocument)
+        /// </summary>
+        /// <param name="idCommande">identifiant de la commande à supprimer</param>
+        /// <returns>true si la suppression a réussi</returns>
+        public bool SupprimerCommande(string idCommande)
+        {
+            String jsonId = convertToJson("id", idCommande);
+            List<CommandeDocument> result = TraitementRecup<CommandeDocument>(
+                DELETE, "commande/" + jsonId, null
+            );
+            return (result != null);
+        }
+
+        /// <summary>
+        /// Classe interne pour désérialiser le prochain ID de commande
+        /// </summary>
+        private class NextId
+        {
+            public string nextId { get; set; }
+        }
+
+        /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -193,6 +294,8 @@ namespace MediaTekDocuments.dal
                 else
                 {
                     Console.WriteLine("code erreur = " + code + " message = " + (String)retour["message"]);
+                    if (!methode.Equals(GET))
+                        return null;
                 }
             }catch(Exception e)
             {
