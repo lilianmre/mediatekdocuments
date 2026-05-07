@@ -1260,7 +1260,10 @@ namespace MediaTekDocuments.view
             lesLivresPourCommande = controller.GetAllLivres();
             RemplirComboSuivi(controller.GetAllSuivis(), bdgSuivisLivres, cbxCommandeLivreSuivi);
             VideCommandeLivreInfos();
-            dgvCommandesLivres.DataSource = null;
+            HashSet<string> idsLivres = new HashSet<string>(lesLivresPourCommande.ConvertAll(l => l.Id));
+            lesCommandesLivreAffichees = controller.GetAllCommandesDocument()
+                .FindAll(c => idsLivres.Contains(c.IdLivreDvd));
+            RemplirCommandesLivresListe(lesCommandesLivreAffichees);
         }
 
         private void BtnCommandeLivreRechercher_Click(object sender, EventArgs e)
@@ -1381,7 +1384,7 @@ namespace MediaTekDocuments.view
 
         private void DgvCommandesLivres_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (lesCommandesLivreAffichees == null || livreCourantCommande == null) return;
+            if (lesCommandesLivreAffichees == null || lesCommandesLivreAffichees.Count == 0) return;
             string titre = dgvCommandesLivres.Columns[e.ColumnIndex].HeaderText;
             List<CommandeDocument> sorted;
             switch (titre)
@@ -1538,7 +1541,10 @@ namespace MediaTekDocuments.view
             lesDvdPourCommande = controller.GetAllDvd();
             RemplirComboSuivi(controller.GetAllSuivis(), bdgSuivisDvd, cbxCommandeDvdSuivi);
             VideCommandeDvdInfos();
-            dgvCommandesDvd.DataSource = null;
+            HashSet<string> idsDvd = new HashSet<string>(lesDvdPourCommande.ConvertAll(d => d.Id));
+            lesCommandesDvdAffichees = controller.GetAllCommandesDocument()
+                .FindAll(c => idsDvd.Contains(c.IdLivreDvd));
+            RemplirCommandesDvdListe(lesCommandesDvdAffichees);
         }
 
         private void BtnCommandeDvdRechercher_Click(object sender, EventArgs e)
@@ -1659,7 +1665,7 @@ namespace MediaTekDocuments.view
 
         private void DgvCommandesDvd_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (lesCommandesDvdAffichees == null || dvdCourantCommande == null) return;
+            if (lesCommandesDvdAffichees == null || lesCommandesDvdAffichees.Count == 0) return;
             string titre = dgvCommandesDvd.Columns[e.ColumnIndex].HeaderText;
             List<CommandeDocument> sorted;
             switch (titre)
@@ -1886,6 +1892,7 @@ namespace MediaTekDocuments.view
                 RemplirAbonnementsListe(lesAbonnementsAffiches);
             }
         }
+
 
         private void RemplirAbonnementsListe(List<CommandeAbonnement> abonnements)
         {

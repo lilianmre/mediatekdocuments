@@ -180,6 +180,14 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
+        /// Retourne toutes les commandes de livres/DVD (sans filtre)
+        /// </summary>
+        public List<CommandeDocument> GetAllCommandesDocument()
+        {
+            return TraitementRecup<CommandeDocument>(GET, "toutescommandesdocuments", null);
+        }
+
+        /// <summary>
         /// Retourne toutes les commandes d'un livre ou DVD
         /// </summary>
         /// <param name="idLivreDvd">identifiant du livre ou DVD</param>
@@ -254,6 +262,65 @@ namespace MediaTekDocuments.dal
                 DELETE, "commande/" + jsonId, null
             );
             return (result != null);
+        }
+
+        /// <summary>
+        /// Retourne tous les abonnements de revues (sans filtre)
+        /// </summary>
+        public List<CommandeAbonnement> GetAllCommandesAbonnement()
+        {
+            return TraitementRecup<CommandeAbonnement>(GET, "tousabonnements", null);
+        }
+
+        /// <summary>
+        /// Retourne toutes les commandes d'abonnement d'une revue
+        /// </summary>
+        public List<CommandeAbonnement> GetCommandesRevue(string idRevue)
+        {
+            String jsonId = convertToJson("idRevue", idRevue);
+            return TraitementRecup<CommandeAbonnement>(GET, "abonnement/" + jsonId, null);
+        }
+
+        /// <summary>
+        /// Crée un abonnement : insère dans commande puis dans abonnement
+        /// </summary>
+        public bool CreerAbonnement(CommandeAbonnement abonnement)
+        {
+            String jsonCommande = JsonConvert.SerializeObject(
+                new { id = abonnement.Id, dateCommande = abonnement.DateCommande, montant = abonnement.Montant },
+                new CustomDateTimeConverter()
+            );
+            List<CommandeAbonnement> r1 = TraitementRecup<CommandeAbonnement>(POST, "commande", "champs=" + jsonCommande);
+            if (r1 == null) return false;
+
+            String jsonAbonnement = JsonConvert.SerializeObject(new
+            {
+                id = abonnement.Id,
+                dateFinAbonnement = abonnement.DateFinAbonnement,
+                idRevue = abonnement.IdRevue
+            }, new CustomDateTimeConverter());
+            List<CommandeAbonnement> r2 = TraitementRecup<CommandeAbonnement>(POST, "abonnement", "champs=" + jsonAbonnement);
+            return (r2 != null);
+        }
+
+        /// <summary>
+        /// Supprime un abonnement (le CASCADE supprime aussi dans abonnement)
+        /// </summary>
+        public bool SupprimerAbonnement(string idAbonnement)
+        {
+            String jsonId = convertToJson("id", idAbonnement);
+            List<CommandeAbonnement> result = TraitementRecup<CommandeAbonnement>(
+                DELETE, "commande/" + jsonId, null
+            );
+            return (result != null);
+        }
+
+        /// <summary>
+        /// Retourne les revues dont l'abonnement se termine dans moins de 30 jours
+        /// </summary>
+        public List<RevueEnAlerte> GetRevuesAbonnementExpirant()
+        {
+            return TraitementRecup<RevueEnAlerte>(GET, "abonnementexpiration", null);
         }
 
         /// <summary>

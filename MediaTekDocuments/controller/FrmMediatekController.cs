@@ -8,7 +8,7 @@ namespace MediaTekDocuments.controller
     /// <summary>
     /// Contrôleur lié à FrmMediatek
     /// </summary>
-    class FrmMediatekController
+    public class FrmMediatekController
     {
         /// <summary>
         /// Objet d'accès aux données
@@ -107,6 +107,14 @@ namespace MediaTekDocuments.controller
         }
 
         /// <summary>
+        /// Retourne toutes les commandes de livres/DVD (sans filtre)
+        /// </summary>
+        public List<CommandeDocument> GetAllCommandesDocument()
+        {
+            return access.GetAllCommandesDocument();
+        }
+
+        /// <summary>
         /// Retourne toutes les commandes d'un livre ou DVD
         /// </summary>
         public List<CommandeDocument> GetCommandesDocument(string idLivreDvd)
@@ -144,6 +152,55 @@ namespace MediaTekDocuments.controller
         public bool SupprimerCommande(string idCommande)
         {
             return access.SupprimerCommande(idCommande);
+        }
+
+        /// <summary>
+        /// Retourne tous les abonnements de revues (sans filtre)
+        /// </summary>
+        public List<CommandeAbonnement> GetAllCommandesAbonnement()
+        {
+            return access.GetAllCommandesAbonnement();
+        }
+
+        /// <summary>
+        /// Retourne toutes les commandes d'abonnement d'une revue
+        /// </summary>
+        public List<CommandeAbonnement> GetCommandesRevue(string idRevue)
+        {
+            return access.GetCommandesRevue(idRevue);
+        }
+
+        /// <summary>
+        /// Crée un abonnement dans la BDD
+        /// </summary>
+        public bool CreerAbonnement(CommandeAbonnement abonnement)
+        {
+            return access.CreerAbonnement(abonnement);
+        }
+
+        /// <summary>
+        /// Supprime un abonnement si aucun exemplaire ne lui est rattaché
+        /// </summary>
+        public bool SupprimerAbonnement(string idAbonnement)
+        {
+            return access.SupprimerAbonnement(idAbonnement);
+        }
+
+        /// <summary>
+        /// Retourne les revues dont l'abonnement se termine dans moins de 30 jours
+        /// </summary>
+        public List<RevueEnAlerte> GetRevuesAbonnementExpirant()
+        {
+            return access.GetRevuesAbonnementExpirant();
+        }
+
+        /// <summary>
+        /// Retourne vrai si la date de parution est comprise entre la date de commande
+        /// et la date de fin d'abonnement (bornes incluses)
+        /// </summary>
+        public static bool ParutionDansAbonnement(DateTime dateCommande, DateTime dateFinAbonnement, DateTime dateParution)
+        {
+            return dateParution >= dateCommande && dateParution <= dateFinAbonnement;
         }
     }
 }

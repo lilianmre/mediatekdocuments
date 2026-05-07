@@ -250,6 +250,37 @@ namespace MediaTekDocuments.view
             this.cbxCommandeDvdSuivi = new System.Windows.Forms.ComboBox();
             this.btnCommandeDvdModifierSuivi = new System.Windows.Forms.Button();
             this.btnCommandeDvdSupprimer = new System.Windows.Forms.Button();
+            this.tabCommandeRevues = new System.Windows.Forms.TabPage();
+            this.grpCommandeRevueRecherche = new System.Windows.Forms.GroupBox();
+            this.lblCommandeRevueNumLabel = new System.Windows.Forms.Label();
+            this.txbCommandeRevueNumRecherche = new System.Windows.Forms.TextBox();
+            this.btnCommandeRevueRechercher = new System.Windows.Forms.Button();
+            this.lblCommandeRevueTitre = new System.Windows.Forms.Label();
+            this.txbCommandeRevueTitre = new System.Windows.Forms.TextBox();
+            this.lblCommandeRevuePeriodicite = new System.Windows.Forms.Label();
+            this.txbCommandeRevuePeriodicite = new System.Windows.Forms.TextBox();
+            this.lblCommandeRevueDelaiMiseADispo = new System.Windows.Forms.Label();
+            this.txbCommandeRevueDelaiMiseADispo = new System.Windows.Forms.TextBox();
+            this.lblCommandeRevueGenre = new System.Windows.Forms.Label();
+            this.txbCommandeRevueGenre = new System.Windows.Forms.TextBox();
+            this.lblCommandeRevuePublic = new System.Windows.Forms.Label();
+            this.txbCommandeRevuePublic = new System.Windows.Forms.TextBox();
+            this.lblCommandeRevueRayon = new System.Windows.Forms.Label();
+            this.txbCommandeRevueRayon = new System.Windows.Forms.TextBox();
+            this.lblCommandeRevueImage = new System.Windows.Forms.Label();
+            this.txbCommandeRevueImage = new System.Windows.Forms.TextBox();
+            this.pcbCommandeRevueImage = new System.Windows.Forms.PictureBox();
+            this.dgvCommandesRevues = new System.Windows.Forms.DataGridView();
+            this.grpCommandeRevueNouvelle = new System.Windows.Forms.GroupBox();
+            this.lblCommandeRevueDateCommande = new System.Windows.Forms.Label();
+            this.dtpCommandeRevueDateCommande = new System.Windows.Forms.DateTimePicker();
+            this.lblCommandeRevueMontant = new System.Windows.Forms.Label();
+            this.nudCommandeRevueMontant = new System.Windows.Forms.NumericUpDown();
+            this.lblCommandeRevueDateFin = new System.Windows.Forms.Label();
+            this.dtpCommandeRevueDateFin = new System.Windows.Forms.DateTimePicker();
+            this.btnCommandeRevueEnregistrer = new System.Windows.Forms.Button();
+            this.grpCommandeRevueSupprimer = new System.Windows.Forms.GroupBox();
+            this.btnCommandeRevueSupprimer = new System.Windows.Forms.Button();
             this.tabOngletsApplication.SuspendLayout();
             this.tabLivres.SuspendLayout();
             this.grpLivresInfos.SuspendLayout();
@@ -289,6 +320,13 @@ namespace MediaTekDocuments.view
             ((System.ComponentModel.ISupportInitialize)(this.nudCommandeDvdNbEx)).BeginInit();
             this.grpCommandeDvdNouvelle.SuspendLayout();
             this.grpCommandeDvdSuivi.SuspendLayout();
+            this.tabCommandeRevues.SuspendLayout();
+            this.grpCommandeRevueRecherche.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCommandeRevueImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCommandesRevues)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCommandeRevueMontant)).BeginInit();
+            this.grpCommandeRevueNouvelle.SuspendLayout();
+            this.grpCommandeRevueSupprimer.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabOngletsApplication
@@ -299,6 +337,7 @@ namespace MediaTekDocuments.view
             this.tabOngletsApplication.Controls.Add(this.tabReceptionRevue);
             this.tabOngletsApplication.Controls.Add(this.tabCommandeLivres);
             this.tabOngletsApplication.Controls.Add(this.tabCommandeDvd);
+            this.tabOngletsApplication.Controls.Add(this.tabCommandeRevues);
             this.tabOngletsApplication.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabOngletsApplication.ItemSize = new System.Drawing.Size(49, 18);
             this.tabOngletsApplication.Location = new System.Drawing.Point(0, 0);
@@ -2676,6 +2715,342 @@ namespace MediaTekDocuments.view
             this.btnCommandeDvdSupprimer.UseVisualStyleBackColor = false;
             this.btnCommandeDvdSupprimer.Click += new System.EventHandler(this.BtnCommandeDvdSupprimer_Click);
             //
+            // tabCommandeRevues
+            //
+            this.tabCommandeRevues.Controls.Add(this.grpCommandeRevueRecherche);
+            this.tabCommandeRevues.Controls.Add(this.dgvCommandesRevues);
+            this.tabCommandeRevues.Controls.Add(this.grpCommandeRevueNouvelle);
+            this.tabCommandeRevues.Controls.Add(this.grpCommandeRevueSupprimer);
+            this.tabCommandeRevues.Location = new System.Drawing.Point(4, 22);
+            this.tabCommandeRevues.Name = "tabCommandeRevues";
+            this.tabCommandeRevues.Size = new System.Drawing.Size(875, 633);
+            this.tabCommandeRevues.TabIndex = 7;
+            this.tabCommandeRevues.Text = "Commandes Revues";
+            this.tabCommandeRevues.UseVisualStyleBackColor = true;
+            this.tabCommandeRevues.Enter += new System.EventHandler(this.TabCommandeRevues_Enter);
+            //
+            // grpCommandeRevueRecherche
+            //
+            this.grpCommandeRevueRecherche.Controls.Add(this.lblCommandeRevueNumLabel);
+            this.grpCommandeRevueRecherche.Controls.Add(this.txbCommandeRevueNumRecherche);
+            this.grpCommandeRevueRecherche.Controls.Add(this.btnCommandeRevueRechercher);
+            this.grpCommandeRevueRecherche.Controls.Add(this.lblCommandeRevueTitre);
+            this.grpCommandeRevueRecherche.Controls.Add(this.txbCommandeRevueTitre);
+            this.grpCommandeRevueRecherche.Controls.Add(this.lblCommandeRevuePeriodicite);
+            this.grpCommandeRevueRecherche.Controls.Add(this.txbCommandeRevuePeriodicite);
+            this.grpCommandeRevueRecherche.Controls.Add(this.lblCommandeRevueDelaiMiseADispo);
+            this.grpCommandeRevueRecherche.Controls.Add(this.txbCommandeRevueDelaiMiseADispo);
+            this.grpCommandeRevueRecherche.Controls.Add(this.lblCommandeRevueGenre);
+            this.grpCommandeRevueRecherche.Controls.Add(this.txbCommandeRevueGenre);
+            this.grpCommandeRevueRecherche.Controls.Add(this.lblCommandeRevuePublic);
+            this.grpCommandeRevueRecherche.Controls.Add(this.txbCommandeRevuePublic);
+            this.grpCommandeRevueRecherche.Controls.Add(this.lblCommandeRevueRayon);
+            this.grpCommandeRevueRecherche.Controls.Add(this.txbCommandeRevueRayon);
+            this.grpCommandeRevueRecherche.Controls.Add(this.lblCommandeRevueImage);
+            this.grpCommandeRevueRecherche.Controls.Add(this.txbCommandeRevueImage);
+            this.grpCommandeRevueRecherche.Controls.Add(this.pcbCommandeRevueImage);
+            this.grpCommandeRevueRecherche.Location = new System.Drawing.Point(5, 5);
+            this.grpCommandeRevueRecherche.Name = "grpCommandeRevueRecherche";
+            this.grpCommandeRevueRecherche.Size = new System.Drawing.Size(285, 620);
+            this.grpCommandeRevueRecherche.TabIndex = 0;
+            this.grpCommandeRevueRecherche.TabStop = false;
+            this.grpCommandeRevueRecherche.Text = "Recherche d\'une revue";
+            //
+            // lblCommandeRevueNumLabel
+            //
+            this.lblCommandeRevueNumLabel.AutoSize = true;
+            this.lblCommandeRevueNumLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCommandeRevueNumLabel.Location = new System.Drawing.Point(6, 22);
+            this.lblCommandeRevueNumLabel.Name = "lblCommandeRevueNumLabel";
+            this.lblCommandeRevueNumLabel.Size = new System.Drawing.Size(60, 13);
+            this.lblCommandeRevueNumLabel.TabIndex = 0;
+            this.lblCommandeRevueNumLabel.Text = "N° revue :";
+            //
+            // txbCommandeRevueNumRecherche
+            //
+            this.txbCommandeRevueNumRecherche.Location = new System.Drawing.Point(80, 19);
+            this.txbCommandeRevueNumRecherche.Name = "txbCommandeRevueNumRecherche";
+            this.txbCommandeRevueNumRecherche.Size = new System.Drawing.Size(110, 20);
+            this.txbCommandeRevueNumRecherche.TabIndex = 1;
+            //
+            // btnCommandeRevueRechercher
+            //
+            this.btnCommandeRevueRechercher.Location = new System.Drawing.Point(195, 17);
+            this.btnCommandeRevueRechercher.Name = "btnCommandeRevueRechercher";
+            this.btnCommandeRevueRechercher.Size = new System.Drawing.Size(85, 25);
+            this.btnCommandeRevueRechercher.TabIndex = 2;
+            this.btnCommandeRevueRechercher.Text = "Rechercher";
+            this.btnCommandeRevueRechercher.UseVisualStyleBackColor = true;
+            this.btnCommandeRevueRechercher.Click += new System.EventHandler(this.BtnCommandeRevueRechercher_Click);
+            //
+            // lblCommandeRevueTitre
+            //
+            this.lblCommandeRevueTitre.AutoSize = true;
+            this.lblCommandeRevueTitre.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCommandeRevueTitre.Location = new System.Drawing.Point(6, 57);
+            this.lblCommandeRevueTitre.Name = "lblCommandeRevueTitre";
+            this.lblCommandeRevueTitre.Size = new System.Drawing.Size(41, 13);
+            this.lblCommandeRevueTitre.TabIndex = 3;
+            this.lblCommandeRevueTitre.Text = "Titre :";
+            //
+            // txbCommandeRevueTitre
+            //
+            this.txbCommandeRevueTitre.BackColor = System.Drawing.SystemColors.Control;
+            this.txbCommandeRevueTitre.Location = new System.Drawing.Point(80, 54);
+            this.txbCommandeRevueTitre.Name = "txbCommandeRevueTitre";
+            this.txbCommandeRevueTitre.ReadOnly = true;
+            this.txbCommandeRevueTitre.Size = new System.Drawing.Size(195, 20);
+            this.txbCommandeRevueTitre.TabIndex = 4;
+            //
+            // lblCommandeRevuePeriodicite
+            //
+            this.lblCommandeRevuePeriodicite.AutoSize = true;
+            this.lblCommandeRevuePeriodicite.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCommandeRevuePeriodicite.Location = new System.Drawing.Point(6, 82);
+            this.lblCommandeRevuePeriodicite.Name = "lblCommandeRevuePeriodicite";
+            this.lblCommandeRevuePeriodicite.Size = new System.Drawing.Size(72, 13);
+            this.lblCommandeRevuePeriodicite.TabIndex = 5;
+            this.lblCommandeRevuePeriodicite.Text = "Périodicité :";
+            //
+            // txbCommandeRevuePeriodicite
+            //
+            this.txbCommandeRevuePeriodicite.BackColor = System.Drawing.SystemColors.Control;
+            this.txbCommandeRevuePeriodicite.Location = new System.Drawing.Point(80, 79);
+            this.txbCommandeRevuePeriodicite.Name = "txbCommandeRevuePeriodicite";
+            this.txbCommandeRevuePeriodicite.ReadOnly = true;
+            this.txbCommandeRevuePeriodicite.Size = new System.Drawing.Size(195, 20);
+            this.txbCommandeRevuePeriodicite.TabIndex = 6;
+            //
+            // lblCommandeRevueDelaiMiseADispo
+            //
+            this.lblCommandeRevueDelaiMiseADispo.AutoSize = true;
+            this.lblCommandeRevueDelaiMiseADispo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCommandeRevueDelaiMiseADispo.Location = new System.Drawing.Point(6, 107);
+            this.lblCommandeRevueDelaiMiseADispo.Name = "lblCommandeRevueDelaiMiseADispo";
+            this.lblCommandeRevueDelaiMiseADispo.Size = new System.Drawing.Size(67, 13);
+            this.lblCommandeRevueDelaiMiseADispo.TabIndex = 7;
+            this.lblCommandeRevueDelaiMiseADispo.Text = "Délai (j) :";
+            //
+            // txbCommandeRevueDelaiMiseADispo
+            //
+            this.txbCommandeRevueDelaiMiseADispo.BackColor = System.Drawing.SystemColors.Control;
+            this.txbCommandeRevueDelaiMiseADispo.Location = new System.Drawing.Point(80, 104);
+            this.txbCommandeRevueDelaiMiseADispo.Name = "txbCommandeRevueDelaiMiseADispo";
+            this.txbCommandeRevueDelaiMiseADispo.ReadOnly = true;
+            this.txbCommandeRevueDelaiMiseADispo.Size = new System.Drawing.Size(195, 20);
+            this.txbCommandeRevueDelaiMiseADispo.TabIndex = 8;
+            //
+            // lblCommandeRevueGenre
+            //
+            this.lblCommandeRevueGenre.AutoSize = true;
+            this.lblCommandeRevueGenre.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCommandeRevueGenre.Location = new System.Drawing.Point(6, 132);
+            this.lblCommandeRevueGenre.Name = "lblCommandeRevueGenre";
+            this.lblCommandeRevueGenre.Size = new System.Drawing.Size(47, 13);
+            this.lblCommandeRevueGenre.TabIndex = 9;
+            this.lblCommandeRevueGenre.Text = "Genre :";
+            //
+            // txbCommandeRevueGenre
+            //
+            this.txbCommandeRevueGenre.BackColor = System.Drawing.SystemColors.Control;
+            this.txbCommandeRevueGenre.Location = new System.Drawing.Point(80, 129);
+            this.txbCommandeRevueGenre.Name = "txbCommandeRevueGenre";
+            this.txbCommandeRevueGenre.ReadOnly = true;
+            this.txbCommandeRevueGenre.Size = new System.Drawing.Size(195, 20);
+            this.txbCommandeRevueGenre.TabIndex = 10;
+            //
+            // lblCommandeRevuePublic
+            //
+            this.lblCommandeRevuePublic.AutoSize = true;
+            this.lblCommandeRevuePublic.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCommandeRevuePublic.Location = new System.Drawing.Point(6, 157);
+            this.lblCommandeRevuePublic.Name = "lblCommandeRevuePublic";
+            this.lblCommandeRevuePublic.Size = new System.Drawing.Size(47, 13);
+            this.lblCommandeRevuePublic.TabIndex = 11;
+            this.lblCommandeRevuePublic.Text = "Public :";
+            //
+            // txbCommandeRevuePublic
+            //
+            this.txbCommandeRevuePublic.BackColor = System.Drawing.SystemColors.Control;
+            this.txbCommandeRevuePublic.Location = new System.Drawing.Point(80, 154);
+            this.txbCommandeRevuePublic.Name = "txbCommandeRevuePublic";
+            this.txbCommandeRevuePublic.ReadOnly = true;
+            this.txbCommandeRevuePublic.Size = new System.Drawing.Size(195, 20);
+            this.txbCommandeRevuePublic.TabIndex = 12;
+            //
+            // lblCommandeRevueRayon
+            //
+            this.lblCommandeRevueRayon.AutoSize = true;
+            this.lblCommandeRevueRayon.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCommandeRevueRayon.Location = new System.Drawing.Point(6, 182);
+            this.lblCommandeRevueRayon.Name = "lblCommandeRevueRayon";
+            this.lblCommandeRevueRayon.Size = new System.Drawing.Size(50, 13);
+            this.lblCommandeRevueRayon.TabIndex = 13;
+            this.lblCommandeRevueRayon.Text = "Rayon :";
+            //
+            // txbCommandeRevueRayon
+            //
+            this.txbCommandeRevueRayon.BackColor = System.Drawing.SystemColors.Control;
+            this.txbCommandeRevueRayon.Location = new System.Drawing.Point(80, 179);
+            this.txbCommandeRevueRayon.Name = "txbCommandeRevueRayon";
+            this.txbCommandeRevueRayon.ReadOnly = true;
+            this.txbCommandeRevueRayon.Size = new System.Drawing.Size(195, 20);
+            this.txbCommandeRevueRayon.TabIndex = 14;
+            //
+            // lblCommandeRevueImage
+            //
+            this.lblCommandeRevueImage.AutoSize = true;
+            this.lblCommandeRevueImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCommandeRevueImage.Location = new System.Drawing.Point(6, 207);
+            this.lblCommandeRevueImage.Name = "lblCommandeRevueImage";
+            this.lblCommandeRevueImage.Size = new System.Drawing.Size(48, 13);
+            this.lblCommandeRevueImage.TabIndex = 15;
+            this.lblCommandeRevueImage.Text = "Image :";
+            //
+            // txbCommandeRevueImage
+            //
+            this.txbCommandeRevueImage.BackColor = System.Drawing.SystemColors.Control;
+            this.txbCommandeRevueImage.Location = new System.Drawing.Point(80, 204);
+            this.txbCommandeRevueImage.Name = "txbCommandeRevueImage";
+            this.txbCommandeRevueImage.ReadOnly = true;
+            this.txbCommandeRevueImage.Size = new System.Drawing.Size(195, 20);
+            this.txbCommandeRevueImage.TabIndex = 16;
+            //
+            // pcbCommandeRevueImage
+            //
+            this.pcbCommandeRevueImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pcbCommandeRevueImage.Location = new System.Drawing.Point(6, 233);
+            this.pcbCommandeRevueImage.Name = "pcbCommandeRevueImage";
+            this.pcbCommandeRevueImage.Size = new System.Drawing.Size(269, 375);
+            this.pcbCommandeRevueImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pcbCommandeRevueImage.TabIndex = 17;
+            this.pcbCommandeRevueImage.TabStop = false;
+            //
+            // dgvCommandesRevues
+            //
+            this.dgvCommandesRevues.AllowUserToAddRows = false;
+            this.dgvCommandesRevues.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvCommandesRevues.Location = new System.Drawing.Point(298, 5);
+            this.dgvCommandesRevues.MultiSelect = false;
+            this.dgvCommandesRevues.Name = "dgvCommandesRevues";
+            this.dgvCommandesRevues.ReadOnly = true;
+            this.dgvCommandesRevues.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCommandesRevues.Size = new System.Drawing.Size(570, 290);
+            this.dgvCommandesRevues.TabIndex = 1;
+            this.dgvCommandesRevues.SelectionChanged += new System.EventHandler(this.DgvCommandesRevues_SelectionChanged);
+            //
+            // grpCommandeRevueNouvelle
+            //
+            this.grpCommandeRevueNouvelle.Controls.Add(this.lblCommandeRevueDateCommande);
+            this.grpCommandeRevueNouvelle.Controls.Add(this.dtpCommandeRevueDateCommande);
+            this.grpCommandeRevueNouvelle.Controls.Add(this.lblCommandeRevueMontant);
+            this.grpCommandeRevueNouvelle.Controls.Add(this.nudCommandeRevueMontant);
+            this.grpCommandeRevueNouvelle.Controls.Add(this.lblCommandeRevueDateFin);
+            this.grpCommandeRevueNouvelle.Controls.Add(this.dtpCommandeRevueDateFin);
+            this.grpCommandeRevueNouvelle.Controls.Add(this.btnCommandeRevueEnregistrer);
+            this.grpCommandeRevueNouvelle.Location = new System.Drawing.Point(298, 303);
+            this.grpCommandeRevueNouvelle.Name = "grpCommandeRevueNouvelle";
+            this.grpCommandeRevueNouvelle.Size = new System.Drawing.Size(275, 180);
+            this.grpCommandeRevueNouvelle.TabIndex = 2;
+            this.grpCommandeRevueNouvelle.TabStop = false;
+            this.grpCommandeRevueNouvelle.Text = "Nouvel abonnement";
+            //
+            // lblCommandeRevueDateCommande
+            //
+            this.lblCommandeRevueDateCommande.AutoSize = true;
+            this.lblCommandeRevueDateCommande.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCommandeRevueDateCommande.Location = new System.Drawing.Point(6, 28);
+            this.lblCommandeRevueDateCommande.Name = "lblCommandeRevueDateCommande";
+            this.lblCommandeRevueDateCommande.Size = new System.Drawing.Size(96, 13);
+            this.lblCommandeRevueDateCommande.TabIndex = 0;
+            this.lblCommandeRevueDateCommande.Text = "Date commande :";
+            //
+            // dtpCommandeRevueDateCommande
+            //
+            this.dtpCommandeRevueDateCommande.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpCommandeRevueDateCommande.Location = new System.Drawing.Point(130, 25);
+            this.dtpCommandeRevueDateCommande.Name = "dtpCommandeRevueDateCommande";
+            this.dtpCommandeRevueDateCommande.Size = new System.Drawing.Size(130, 20);
+            this.dtpCommandeRevueDateCommande.TabIndex = 1;
+            //
+            // lblCommandeRevueMontant
+            //
+            this.lblCommandeRevueMontant.AutoSize = true;
+            this.lblCommandeRevueMontant.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCommandeRevueMontant.Location = new System.Drawing.Point(6, 58);
+            this.lblCommandeRevueMontant.Name = "lblCommandeRevueMontant";
+            this.lblCommandeRevueMontant.Size = new System.Drawing.Size(78, 13);
+            this.lblCommandeRevueMontant.TabIndex = 2;
+            this.lblCommandeRevueMontant.Text = "Montant (€) :";
+            //
+            // nudCommandeRevueMontant
+            //
+            this.nudCommandeRevueMontant.DecimalPlaces = 2;
+            this.nudCommandeRevueMontant.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.nudCommandeRevueMontant.Location = new System.Drawing.Point(130, 55);
+            this.nudCommandeRevueMontant.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.nudCommandeRevueMontant.Name = "nudCommandeRevueMontant";
+            this.nudCommandeRevueMontant.Size = new System.Drawing.Size(130, 20);
+            this.nudCommandeRevueMontant.TabIndex = 3;
+            //
+            // lblCommandeRevueDateFin
+            //
+            this.lblCommandeRevueDateFin.AutoSize = true;
+            this.lblCommandeRevueDateFin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCommandeRevueDateFin.Location = new System.Drawing.Point(6, 90);
+            this.lblCommandeRevueDateFin.Name = "lblCommandeRevueDateFin";
+            this.lblCommandeRevueDateFin.Size = new System.Drawing.Size(99, 13);
+            this.lblCommandeRevueDateFin.TabIndex = 4;
+            this.lblCommandeRevueDateFin.Text = "Fin abonnement :";
+            //
+            // dtpCommandeRevueDateFin
+            //
+            this.dtpCommandeRevueDateFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpCommandeRevueDateFin.Location = new System.Drawing.Point(130, 87);
+            this.dtpCommandeRevueDateFin.Name = "dtpCommandeRevueDateFin";
+            this.dtpCommandeRevueDateFin.Size = new System.Drawing.Size(130, 20);
+            this.dtpCommandeRevueDateFin.TabIndex = 5;
+            //
+            // btnCommandeRevueEnregistrer
+            //
+            this.btnCommandeRevueEnregistrer.BackColor = System.Drawing.Color.LightGreen;
+            this.btnCommandeRevueEnregistrer.Location = new System.Drawing.Point(75, 130);
+            this.btnCommandeRevueEnregistrer.Name = "btnCommandeRevueEnregistrer";
+            this.btnCommandeRevueEnregistrer.Size = new System.Drawing.Size(120, 30);
+            this.btnCommandeRevueEnregistrer.TabIndex = 6;
+            this.btnCommandeRevueEnregistrer.Text = "Enregistrer";
+            this.btnCommandeRevueEnregistrer.UseVisualStyleBackColor = false;
+            this.btnCommandeRevueEnregistrer.Click += new System.EventHandler(this.BtnCommandeRevueEnregistrer_Click);
+            //
+            // grpCommandeRevueSupprimer
+            //
+            this.grpCommandeRevueSupprimer.Controls.Add(this.btnCommandeRevueSupprimer);
+            this.grpCommandeRevueSupprimer.Location = new System.Drawing.Point(582, 303);
+            this.grpCommandeRevueSupprimer.Name = "grpCommandeRevueSupprimer";
+            this.grpCommandeRevueSupprimer.Size = new System.Drawing.Size(286, 180);
+            this.grpCommandeRevueSupprimer.TabIndex = 3;
+            this.grpCommandeRevueSupprimer.TabStop = false;
+            this.grpCommandeRevueSupprimer.Text = "Supprimer l\'abonnement sélectionné";
+            //
+            // btnCommandeRevueSupprimer
+            //
+            this.btnCommandeRevueSupprimer.BackColor = System.Drawing.Color.LightCoral;
+            this.btnCommandeRevueSupprimer.Location = new System.Drawing.Point(43, 70);
+            this.btnCommandeRevueSupprimer.Name = "btnCommandeRevueSupprimer";
+            this.btnCommandeRevueSupprimer.Size = new System.Drawing.Size(195, 30);
+            this.btnCommandeRevueSupprimer.TabIndex = 0;
+            this.btnCommandeRevueSupprimer.Text = "Supprimer l\'abonnement";
+            this.btnCommandeRevueSupprimer.UseVisualStyleBackColor = false;
+            this.btnCommandeRevueSupprimer.Click += new System.EventHandler(this.BtnCommandeRevueSupprimer_Click);
+            //
             // FrmMediatek
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2737,6 +3112,15 @@ namespace MediaTekDocuments.view
             this.grpCommandeDvdNouvelle.PerformLayout();
             this.grpCommandeDvdSuivi.ResumeLayout(false);
             this.grpCommandeDvdSuivi.PerformLayout();
+            this.tabCommandeRevues.ResumeLayout(false);
+            this.grpCommandeRevueRecherche.ResumeLayout(false);
+            this.grpCommandeRevueRecherche.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbCommandeRevueImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCommandesRevues)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCommandeRevueMontant)).EndInit();
+            this.grpCommandeRevueNouvelle.ResumeLayout(false);
+            this.grpCommandeRevueNouvelle.PerformLayout();
+            this.grpCommandeRevueSupprimer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2964,6 +3348,37 @@ namespace MediaTekDocuments.view
         private System.Windows.Forms.ComboBox cbxCommandeDvdSuivi;
         private System.Windows.Forms.Button btnCommandeDvdModifierSuivi;
         private System.Windows.Forms.Button btnCommandeDvdSupprimer;
+        private System.Windows.Forms.TabPage tabCommandeRevues;
+        private System.Windows.Forms.GroupBox grpCommandeRevueRecherche;
+        private System.Windows.Forms.Label lblCommandeRevueNumLabel;
+        private System.Windows.Forms.TextBox txbCommandeRevueNumRecherche;
+        private System.Windows.Forms.Button btnCommandeRevueRechercher;
+        private System.Windows.Forms.Label lblCommandeRevueTitre;
+        private System.Windows.Forms.TextBox txbCommandeRevueTitre;
+        private System.Windows.Forms.Label lblCommandeRevuePeriodicite;
+        private System.Windows.Forms.TextBox txbCommandeRevuePeriodicite;
+        private System.Windows.Forms.Label lblCommandeRevueDelaiMiseADispo;
+        private System.Windows.Forms.TextBox txbCommandeRevueDelaiMiseADispo;
+        private System.Windows.Forms.Label lblCommandeRevueGenre;
+        private System.Windows.Forms.TextBox txbCommandeRevueGenre;
+        private System.Windows.Forms.Label lblCommandeRevuePublic;
+        private System.Windows.Forms.TextBox txbCommandeRevuePublic;
+        private System.Windows.Forms.Label lblCommandeRevueRayon;
+        private System.Windows.Forms.TextBox txbCommandeRevueRayon;
+        private System.Windows.Forms.Label lblCommandeRevueImage;
+        private System.Windows.Forms.TextBox txbCommandeRevueImage;
+        private System.Windows.Forms.PictureBox pcbCommandeRevueImage;
+        private System.Windows.Forms.DataGridView dgvCommandesRevues;
+        private System.Windows.Forms.GroupBox grpCommandeRevueNouvelle;
+        private System.Windows.Forms.Label lblCommandeRevueDateCommande;
+        private System.Windows.Forms.DateTimePicker dtpCommandeRevueDateCommande;
+        private System.Windows.Forms.Label lblCommandeRevueMontant;
+        private System.Windows.Forms.NumericUpDown nudCommandeRevueMontant;
+        private System.Windows.Forms.Label lblCommandeRevueDateFin;
+        private System.Windows.Forms.DateTimePicker dtpCommandeRevueDateFin;
+        private System.Windows.Forms.Button btnCommandeRevueEnregistrer;
+        private System.Windows.Forms.GroupBox grpCommandeRevueSupprimer;
+        private System.Windows.Forms.Button btnCommandeRevueSupprimer;
     }
 }
 
