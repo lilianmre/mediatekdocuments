@@ -1,4 +1,4 @@
-﻿using MediaTekDocuments.view;
+using MediaTekDocuments.view;
 using MediaTekDocuments.dal;
 using MediaTekDocuments.model;
 using System;
@@ -17,12 +17,27 @@ namespace MediaTekDocuments
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            List<RevueEnAlerte> alertes = Access.GetInstance().GetRevuesAbonnementExpirant();
-            if (alertes != null && alertes.Count > 0)
+
+            // Fenêtre d'authentification
+            FrmAuthentification frmAuth = new FrmAuthentification();
+            if (frmAuth.ShowDialog() != DialogResult.OK)
             {
-                new FrmAlerteAbonnement(alertes).ShowDialog();
+                return;
             }
-            Application.Run(new FrmMediatek());
+
+            Utilisateur utilisateur = frmAuth.UtilisateurConnecte;
+
+            // Alerte abonnements expirants uniquement pour le service Diffusion (commandes)
+            if (utilisateur.IdService == "00001")
+            {
+                List<RevueEnAlerte> alertes = Access.GetInstance().GetRevuesAbonnementExpirant();
+                if (alertes != null && alertes.Count > 0)
+                {
+                    new FrmAlerteAbonnement(alertes).ShowDialog();
+                }
+            }
+
+            Application.Run(new FrmMediatek(utilisateur));
         }
     }
 }

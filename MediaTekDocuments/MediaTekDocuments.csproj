@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="manager\ApiRest.cs" />
+    <Compile Include="controller\FrmAuthentificationController.cs" />
     <Compile Include="controller\FrmMediatekController.cs" />
     <Compile Include="dal\Access.cs" />
     <Compile Include="view\FrmAlerteAbonnement.cs">
@@ -69,6 +70,12 @@
     </Compile>
     <Compile Include="view\FrmAlerteAbonnement.Designer.cs">
       <DependentUpon>FrmAlerteAbonnement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="view\FrmAuthentification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\FrmAuthentification.Designer.cs">
+      <DependentUpon>FrmAuthentification.cs</DependentUpon>
     </Compile>
     <Compile Include="view\FrmMediatek.cs">
       <SubType>Form</SubType>
@@ -91,6 +98,7 @@
     <Compile Include="model\Revue.cs" />
     <Compile Include="model\RevueEnAlerte.cs" />
     <Compile Include="model\Suivi.cs" />
+    <Compile Include="model\Utilisateur.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -324,6 +324,21 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
+        /// Retourne l'utilisateur correspondant au login et mot de passe, ou null si introuvable
+        /// </summary>
+        /// <param name="login">login de l'utilisateur</param>
+        /// <param name="pwd">mot de passe de l'utilisateur</param>
+        /// <returns>Objet Utilisateur ou null</returns>
+        public Utilisateur GetUtilisateur(string login, string pwd)
+        {
+            String jsonChamps = JsonConvert.SerializeObject(new { login = login, pwd = pwd });
+            List<Utilisateur> liste = TraitementRecup<Utilisateur>(GET, "utilisateur/" + jsonChamps, null);
+            if (liste != null && liste.Count > 0)
+                return liste[0];
+            return null;
+        }
+
+        /// <summary>
         /// Classe interne pour désérialiser le prochain ID de commande
         /// </summary>
         private class NextId

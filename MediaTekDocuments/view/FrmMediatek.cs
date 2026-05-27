@@ -23,11 +23,30 @@ namespace MediaTekDocuments.view
 
         /// <summary>
         /// Constructeur : création du contrôleur lié à ce formulaire
+        /// Applique les restrictions d'accès selon le service de l'utilisateur connecté
         /// </summary>
-        internal FrmMediatek()
+        /// <param name="utilisateur">utilisateur authentifié</param>
+        internal FrmMediatek(Utilisateur utilisateur)
         {
             InitializeComponent();
             this.controller = new FrmMediatekController();
+            AppliquerDroitsAcces(utilisateur);
+        }
+
+        /// <summary>
+        /// Rend invisibles les onglets non accessibles selon le service de l'utilisateur
+        /// Service Diffusion (00001) : accès complet
+        /// Service Prêt (00002) : documents uniquement, onglets commandes masqués
+        /// </summary>
+        /// <param name="utilisateur">utilisateur authentifié</param>
+        private void AppliquerDroitsAcces(Utilisateur utilisateur)
+        {
+            if (utilisateur.IdService == "00002")
+            {
+                tabOngletsApplication.TabPages.Remove(tabCommandeLivres);
+                tabOngletsApplication.TabPages.Remove(tabCommandeDvd);
+                tabOngletsApplication.TabPages.Remove(tabCommandeRevues);
+            }
         }
 
         /// <summary>
