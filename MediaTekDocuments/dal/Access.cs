@@ -7,6 +7,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
 using System.Linq;
+using Serilog;
 
 namespace MediaTekDocuments.dal
 {
@@ -18,7 +19,11 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// adresse de l'API
         /// </summary>
-        private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
+        private static readonly string uriApi = ConfigurationManager.AppSettings["api.uri"];
+        /// <summary>
+        /// préfixe des paramètres de body envoyés à l'API
+        /// </summary>
+        private const string CHAMPS = "champs=";
         /// <summary>
         /// instance unique de la classe
         /// </summary>
@@ -53,12 +58,17 @@ namespace MediaTekDocuments.dal
             String authenticationString;
             try
             {
+                Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Debug()
+                    .WriteTo.Console()
+                    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
+                    .CreateLogger();
                 authenticationString = ConfigurationManager.AppSettings["api.credentials"];
                 api = ApiRest.GetInstance(uriApi, authenticationString);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Log.Fatal("Access.Access : {0}", e.Message);
                 Environment.Exit(0);
             }
         }
@@ -159,14 +169,14 @@ namespace MediaTekDocuments.dal
             String jsonExemplaire = JsonConvert.SerializeObject(exemplaire, new CustomDateTimeConverter());
             try
             {
-                List<Exemplaire> liste = TraitementRecup<Exemplaire>(POST, "exemplaire", "champs=" + jsonExemplaire);
-                return (liste != null);
+                TraitementRecup<Exemplaire>(POST, "exemplaire", CHAMPS + jsonExemplaire);
+                return true;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Log.Error("Access.CreerExemplaire : {0}", ex.Message);
+                return false;
             }
-            return false;
         }
 
         /// <summary>
@@ -217,22 +227,29 @@ namespace MediaTekDocuments.dal
         /// <returns>true si les deux insertions ont réussi</returns>
         public bool CreerCommande(CommandeDocument commande)
         {
-            String jsonCommande = JsonConvert.SerializeObject(
-                new { id = commande.Id, dateCommande = commande.DateCommande, montant = commande.Montant },
-                new CustomDateTimeConverter()
-            );
-            List<CommandeDocument> r1 = TraitementRecup<CommandeDocument>(POST, "commande", "champs=" + jsonCommande);
-            if (r1 == null) return false;
-
-            String jsonCommandeDoc = JsonConvert.SerializeObject(new
+            try
             {
-                id = commande.Id,
-                nbExemplaire = commande.NbExemplaire,
-                idLivreDvd = commande.IdLivreDvd,
-                idSuivi = "00001"
-            });
-            List<CommandeDocument> r2 = TraitementRecup<CommandeDocument>(POST, "commandedocument", "champs=" + jsonCommandeDoc);
-            return (r2 != null);
+                String jsonCommande = JsonConvert.SerializeObject(
+                    new { id = commande.Id, dateCommande = commande.DateCommande, montant = commande.Montant },
+                    new CustomDateTimeConverter()
+                );
+                TraitementRecup<CommandeDocument>(POST, "commande", CHAMPS + jsonCommande);
+
+                String jsonCommandeDoc = JsonConvert.SerializeObject(new
+                {
+                    id = commande.Id,
+                    nbExemplaire = commande.NbExemplaire,
+                    idLivreDvd = commande.IdLivreDvd,
+                    idSuivi = "00001"
+                });
+                TraitementRecup<CommandeDocument>(POST, "commandedocument", CHAMPS + jsonCommandeDoc);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Access.CreerCommande : {0}", ex.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -243,11 +260,17 @@ namespace MediaTekDocuments.dal
         /// <returns>true si la modification a réussi</returns>
         public bool ModifierSuiviCommande(string idCommande, string idSuivi)
         {
-            String jsonSuivi = convertToJson("idSuivi", idSuivi);
-            List<CommandeDocument> result = TraitementRecup<CommandeDocument>(
-                PUT, "commandedocument/" + idCommande, "champs=" + jsonSuivi
-            );
-            return (result != null);
+            try
+            {
+                String jsonSuivi = convertToJson("idSuivi", idSuivi);
+                TraitementRecup<CommandeDocument>(PUT, "commandedocument/" + idCommande, CHAMPS + jsonSuivi);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Access.ModifierSuiviCommande : {0}", ex.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -257,11 +280,17 @@ namespace MediaTekDocuments.dal
         /// <returns>true si la suppression a réussi</returns>
         public bool SupprimerCommande(string idCommande)
         {
-            String jsonId = convertToJson("id", idCommande);
-            List<CommandeDocument> result = TraitementRecup<CommandeDocument>(
-                DELETE, "commande/" + jsonId, null
-            );
-            return (result != null);
+            try
+            {
+                String jsonId = convertToJson("id", idCommande);
+                TraitementRecup<CommandeDocument>(DELETE, "commande/" + jsonId, null);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Access.SupprimerCommande : {0}", ex.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -286,21 +315,28 @@ namespace MediaTekDocuments.dal
         /// </summary>
         public bool CreerAbonnement(CommandeAbonnement abonnement)
         {
-            String jsonCommande = JsonConvert.SerializeObject(
-                new { id = abonnement.Id, dateCommande = abonnement.DateCommande, montant = abonnement.Montant },
-                new CustomDateTimeConverter()
-            );
-            List<CommandeAbonnement> r1 = TraitementRecup<CommandeAbonnement>(POST, "commande", "champs=" + jsonCommande);
-            if (r1 == null) return false;
-
-            String jsonAbonnement = JsonConvert.SerializeObject(new
+            try
             {
-                id = abonnement.Id,
-                dateFinAbonnement = abonnement.DateFinAbonnement,
-                idRevue = abonnement.IdRevue
-            }, new CustomDateTimeConverter());
-            List<CommandeAbonnement> r2 = TraitementRecup<CommandeAbonnement>(POST, "abonnement", "champs=" + jsonAbonnement);
-            return (r2 != null);
+                String jsonCommande = JsonConvert.SerializeObject(
+                    new { id = abonnement.Id, dateCommande = abonnement.DateCommande, montant = abonnement.Montant },
+                    new CustomDateTimeConverter()
+                );
+                TraitementRecup<CommandeAbonnement>(POST, "commande", CHAMPS + jsonCommande);
+
+                String jsonAbonnement = JsonConvert.SerializeObject(new
+                {
+                    id = abonnement.Id,
+                    dateFinAbonnement = abonnement.DateFinAbonnement,
+                    idRevue = abonnement.IdRevue
+                }, new CustomDateTimeConverter());
+                TraitementRecup<CommandeAbonnement>(POST, "abonnement", CHAMPS + jsonAbonnement);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Access.CreerAbonnement : {0}", ex.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -308,11 +344,17 @@ namespace MediaTekDocuments.dal
         /// </summary>
         public bool SupprimerAbonnement(string idAbonnement)
         {
-            String jsonId = convertToJson("id", idAbonnement);
-            List<CommandeAbonnement> result = TraitementRecup<CommandeAbonnement>(
-                DELETE, "commande/" + jsonId, null
-            );
-            return (result != null);
+            try
+            {
+                String jsonId = convertToJson("id", idAbonnement);
+                TraitementRecup<CommandeAbonnement>(DELETE, "commande/" + jsonId, null);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Access.SupprimerAbonnement : {0}", ex.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -341,9 +383,11 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// Classe interne pour désérialiser le prochain ID de commande
         /// </summary>
-        private class NextId
+        private sealed class NextId
         {
-            public string nextId { get; set; }
+            [JsonConstructor]
+            public NextId(string nextId) { this.nextId = nextId; }
+            public string nextId { get; }
         }
 
         /// <summary>
@@ -375,13 +419,13 @@ namespace MediaTekDocuments.dal
                 }
                 else
                 {
-                    Console.WriteLine("code erreur = " + code + " message = " + (String)retour["message"]);
+                    Log.Warning("Access.TraitementRecup : code erreur = {0} message = {1}", code, (String)retour["message"]);
                     if (!methode.Equals(GET))
-                        return null;
+                        throw new InvalidOperationException("Erreur API code " + code);
                 }
             }catch(Exception e)
             {
-                Console.WriteLine("Erreur lors de l'accès à l'API : "+e.Message);
+                Log.Fatal("Access.TraitementRecup : {0}", e.Message);
                 Environment.Exit(0);
             }
             return liste;
@@ -393,7 +437,7 @@ namespace MediaTekDocuments.dal
         /// <param name="nom"></param>
         /// <param name="valeur"></param>
         /// <returns>couple au format json</returns>
-        private String convertToJson(Object nom, Object valeur)
+        private static String convertToJson(Object nom, Object valeur)
         {
             Dictionary<Object, Object> dictionary = new Dictionary<Object, Object>();
             dictionary.Add(nom, valeur);
