@@ -53,12 +53,12 @@ namespace MediaTekDocuments.view
             {
                 MessageBox.Show("Vos droits ne sont pas suffisants pour accéder à cette application.",
                     "Accès refusé", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.DialogResult = DialogResult.Cancel;
+                DialogResult = DialogResult.Cancel;
                 return;
             }
 
             UtilisateurConnecte = utilisateur;
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
         }
     }
 }

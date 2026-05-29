@@ -1320,7 +1320,7 @@ namespace MediaTekDocuments.view
             txbCommandeLivreRayon.Text = livre.Rayon;
             txbCommandeLivreImage.Text = livre.Image;
             try { pcbCommandeLivreImage.Image = Image.FromFile(livre.Image); }
-            catch { pcbCommandeLivreImage.Image = null; }
+            catch (Exception) { pcbCommandeLivreImage.Image = null; }
         }
 
         private void VideCommandeLivreInfos()
@@ -1397,7 +1397,7 @@ namespace MediaTekDocuments.view
                         }
                     }
                 }
-                catch { cbxCommandeLivreSuivi.SelectedIndex = -1; }
+                catch (Exception) { cbxCommandeLivreSuivi.SelectedIndex = -1; }
             }
         }
 
@@ -1526,7 +1526,7 @@ namespace MediaTekDocuments.view
             }
 
             DialogResult confirm = MessageBox.Show(
-                string.Format("Supprimer la commande n°{0} du {1} ?", cmd.Id, cmd.DateCommande.ToString("dd/MM/yyyy")),
+                $"Supprimer la commande n°{cmd.Id} du {cmd.DateCommande:dd/MM/yyyy} ?",
                 "Confirmation de suppression",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -1601,7 +1601,7 @@ namespace MediaTekDocuments.view
             txbCommandeDvdRayon.Text = dvd.Rayon;
             txbCommandeDvdImage.Text = dvd.Image;
             try { pcbCommandeDvdImage.Image = Image.FromFile(dvd.Image); }
-            catch { pcbCommandeDvdImage.Image = null; }
+            catch (Exception) { pcbCommandeDvdImage.Image = null; }
         }
 
         private void VideCommandeDvdInfos()
@@ -1678,7 +1678,7 @@ namespace MediaTekDocuments.view
                         }
                     }
                 }
-                catch { cbxCommandeDvdSuivi.SelectedIndex = -1; }
+                catch (Exception) { cbxCommandeDvdSuivi.SelectedIndex = -1; }
             }
         }
 
@@ -1877,7 +1877,7 @@ namespace MediaTekDocuments.view
             txbCommandeRevueRayon.Text = revue.Rayon;
             txbCommandeRevueImage.Text = revue.Image;
             try { pcbCommandeRevueImage.Image = Image.FromFile(revue.Image); }
-            catch { pcbCommandeRevueImage.Image = null; }
+            catch (Exception) { pcbCommandeRevueImage.Image = null; }
         }
 
         private void VideCommandeRevueInfos()
@@ -2007,8 +2007,7 @@ namespace MediaTekDocuments.view
             }
 
             DialogResult confirm = MessageBox.Show(
-                string.Format("Supprimer l'abonnement n°{0} (fin le {1}) ?",
-                    abonnement.Id, abonnement.DateFinAbonnement.ToString("dd/MM/yyyy")),
+                $"Supprimer l'abonnement n°{abonnement.Id} (fin le {abonnement.DateFinAbonnement:dd/MM/yyyy}) ?",
                 "Confirmation de suppression",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
