@@ -23,7 +23,7 @@ namespace MediaTekDocuments.view
 
         private void BtnFermer_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

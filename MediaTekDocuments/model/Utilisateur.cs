@@ -14,11 +14,11 @@ namespace MediaTekDocuments.model
 
         public Utilisateur(string login, string nom, string prenom, string idService, string service)
         {
-            this.Login = login;
-            this.Nom = nom;
-            this.Prenom = prenom;
-            this.IdService = idService;
-            this.Service = service;
+            Login = login;
+            Nom = nom;
+            Prenom = prenom;
+            IdService = idService;
+            Service = service;
         }
     }
 }
