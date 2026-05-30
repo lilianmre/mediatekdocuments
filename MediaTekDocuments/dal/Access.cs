@@ -205,7 +205,7 @@ namespace MediaTekDocuments.dal
         public List<CommandeDocument> GetCommandesDocument(string idLivreDvd)
         {
             String jsonId = convertToJson("idLivreDvd", idLivreDvd);
-            return TraitementRecup<CommandeDocument>(GET, "commandedocument/" + jsonId, null);
+            return TraitementRecup<CommandeDocument>(GET, "toutescommandesdocuments/" + jsonId, null);
         }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace MediaTekDocuments.dal
         public List<CommandeAbonnement> GetCommandesRevue(string idRevue)
         {
             String jsonId = convertToJson("idRevue", idRevue);
-            return TraitementRecup<CommandeAbonnement>(GET, "abonnement/" + jsonId, null);
+            return TraitementRecup<CommandeAbonnement>(GET, "tousabonnements/" + jsonId, null);
         }
 
         /// <summary>
@@ -423,7 +423,8 @@ namespace MediaTekDocuments.dal
                     if (!methode.Equals(GET))
                         throw new InvalidOperationException("Erreur API code " + code);
                 }
-            }catch(Exception e)
+            }
+            catch (Exception e) when (!(e is InvalidOperationException))
             {
                 Log.Fatal("Access.TraitementRecup : {0}", e.Message);
                 Environment.Exit(0);
