@@ -1,4 +1,4 @@
-﻿
+
 namespace MediaTekDocuments.model
 {
     /// <summary>
@@ -6,6 +6,11 @@ namespace MediaTekDocuments.model
     /// </summary>
     public class Genre : Categorie
     {
+        /// <summary>
+        /// Crée un nouveau genre
+        /// </summary>
+        /// <param name="id">identifiant du genre</param>
+        /// <param name="libelle">libellé du genre</param>
         public Genre(string id, string libelle) : base(id, libelle)
         {
         }

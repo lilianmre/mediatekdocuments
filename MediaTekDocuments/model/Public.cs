@@ -1,4 +1,4 @@
-﻿
+
 namespace MediaTekDocuments.model
 {
     /// <summary>
@@ -6,6 +6,11 @@ namespace MediaTekDocuments.model
     /// </summary>
     public class Public : Categorie
     {
+        /// <summary>
+        /// Crée un nouveau public cible
+        /// </summary>
+        /// <param name="id">identifiant du public</param>
+        /// <param name="libelle">libellé du public</param>
         public Public(string id, string libelle) : base(id, libelle)
         {
         }
