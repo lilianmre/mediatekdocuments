@@ -1,0 +1,1303 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MediaTekDocuments</name>
+    </assembly>
+    <members>
+        <member name="T:MediaTekDocuments.manager.ApiRest">
+            <summary>
+            Classe indépendante d'accès à une api rest avec éventuellement une "basic authorization"
+            </summary>
+        </member>
+        <member name="F:MediaTekDocuments.manager.ApiRest.instance">
+            <summary>
+            unique instance de la classe
+            </summary>
+        </member>
+        <member name="F:MediaTekDocuments.manager.ApiRest.httpClient">
+            <summary>
+            Objet de connexion à l'api
+            </summary>
+        </member>
+        <member name="F:MediaTekDocuments.manager.ApiRest.httpResponse">
+            <summary>
+            Canal http pour l'envoi du message et la récupération de la réponse
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.manager.ApiRest.#ctor(System.String,System.String)">
+            <summary>
+            Constructeur privé pour préparer la connexion (éventuellement sécurisée)
+            </summary>
+            <param name="uriApi">adresse de l'api</param>
+            <param name="authenticationString">chaîne d'authentification</param>
+        </member>
+        <member name="M:MediaTekDocuments.manager.ApiRest.GetInstance(System.String,System.String)">
+            <summary>
+            Crée une instance unique de la classe
+            </summary>
+            <param name="uriApi">adresse de l'api</param>
+            <param name="authenticationString">chaîne d'authentificatio (login:pwd)</param>
+            <returns></returns>
+        </member>
+        <member name="M:MediaTekDocuments.manager.ApiRest.RecupDistant(System.String,System.String,System.String)">
+            <summary>
+            Envoi une demande à l'API et récupère la réponse
+            </summary>
+            <param name="methode">verbe http (GET, POST, PUT, DELETE)</param>
+            <param name="message">message à envoyer dans l'URL</param>
+            <param name="parametres">contenu de variables à mettre dans body</param>
+            <returns>liste d'objets (select) ou liste vide (ok) ou null si erreur</returns>
+        </member>
+        <member name="T:MediaTekDocuments.controller.FrmAuthentificationController">
+            <summary>
+            Contrôleur lié à FrmAuthentification
+            </summary>
+        </member>
+        <member name="F:MediaTekDocuments.controller.FrmAuthentificationController.access">
+            <summary>
+            Objet d'accès aux données
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmAuthentificationController.#ctor">
+            <summary>
+            Récupération de l'instance unique d'accès aux données
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmAuthentificationController.GetUtilisateur(System.String,System.String)">
+            <summary>
+            Retourne l'utilisateur correspondant au login et mot de passe, ou null si introuvable
+            </summary>
+            <param name="login">login saisi</param>
+            <param name="pwd">mot de passe saisi</param>
+            <returns>Objet Utilisateur ou null</returns>
+        </member>
+        <member name="T:MediaTekDocuments.controller.FrmMediatekController">
+            <summary>
+            Contrôleur lié à FrmMediatek
+            </summary>
+        </member>
+        <member name="F:MediaTekDocuments.controller.FrmMediatekController.access">
+            <summary>
+            Objet d'accès aux données
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.#ctor">
+            <summary>
+            Récupération de l'instance unique d'accès aux données
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetAllGenres">
+            <summary>
+            getter sur la liste des genres
+            </summary>
+            <returns>Liste d'objets Genre</returns>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetAllLivres">
+            <summary>
+            getter sur la liste des livres
+            </summary>
+            <returns>Liste d'objets Livre</returns>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetAllDvd">
+            <summary>
+            getter sur la liste des Dvd
+            </summary>
+            <returns>Liste d'objets dvd</returns>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetAllRevues">
+            <summary>
+            getter sur la liste des revues
+            </summary>
+            <returns>Liste d'objets Revue</returns>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetAllRayons">
+            <summary>
+            getter sur les rayons
+            </summary>
+            <returns>Liste d'objets Rayon</returns>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetAllPublics">
+            <summary>
+            getter sur les publics
+            </summary>
+            <returns>Liste d'objets Public</returns>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetExemplairesRevue(System.String)">
+            <summary>
+            récupère les exemplaires d'une revue
+            </summary>
+            <param name="idDocuement">id de la revue concernée</param>
+            <returns>Liste d'objets Exemplaire</returns>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.CreerExemplaire(MediaTekDocuments.model.Exemplaire)">
+            <summary>
+            Crée un exemplaire d'une revue dans la bdd
+            </summary>
+            <param name="exemplaire">L'objet Exemplaire concerné</param>
+            <returns>True si la création a pu se faire</returns>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetAllSuivis">
+            <summary>
+            Retourne toutes les étapes de suivi
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetAllCommandesDocument">
+            <summary>
+            Retourne toutes les commandes de livres/DVD (sans filtre)
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetCommandesDocument(System.String)">
+            <summary>
+            Retourne toutes les commandes d'un livre ou DVD
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetNextCommandeId">
+            <summary>
+            Retourne le prochain identifiant disponible pour une commande
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.CreerCommande(MediaTekDocuments.model.CommandeDocument)">
+            <summary>
+            Crée une commande dans la BDD
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.ModifierSuiviCommande(System.String,System.String)">
+            <summary>
+            Modifie l'étape de suivi d'une commande
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.SupprimerCommande(System.String)">
+            <summary>
+            Supprime une commande (non encore livrée)
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetAllCommandesAbonnement">
+            <summary>
+            Retourne tous les abonnements de revues (sans filtre)
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetCommandesRevue(System.String)">
+            <summary>
+            Retourne toutes les commandes d'abonnement d'une revue
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.CreerAbonnement(MediaTekDocuments.model.CommandeAbonnement)">
+            <summary>
+            Crée un abonnement dans la BDD
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.SupprimerAbonnement(System.String)">
+            <summary>
+            Supprime un abonnement si aucun exemplaire ne lui est rattaché
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.GetRevuesAbonnementExpirant">
+            <summary>
+            Retourne les revues dont l'abonnement se termine dans moins de 30 jours
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.controller.FrmMediatekController.ParutionDansAbonnement(System.DateTime,System.DateTime,System.DateTime)">
+            <summary>
+            Retourne vrai si la date de parution est comprise entre la date de commande
+            et la date de fin d'abonnement (bornes incluses)
+            </summary>
+        </member>
+        <member name="T:MediaTekDocuments.dal.Access">
+            <summary>
+            Classe d'accès aux données
+            </summary>
+        </member>
+        <member name="F:MediaTekDocuments.dal.Access.uriApi">
+            <summary>
+            adresse de l'API
+            </summary>
+        </member>
+        <member name="F:MediaTekDocuments.dal.Access.CHAMPS">
+            <summary>
+            préfixe des paramètres de body envoyés à l'API
+            </summary>
+        </member>
+        <member name="F:MediaTekDocuments.dal.Access.instance">
+            <summary>
+            instance unique de la classe
+            </summary>
+        </member>
+        <member name="F:MediaTekDocuments.dal.Access.api">
+            <summary>
+            instance de ApiRest pour envoyer des demandes vers l'api et recevoir la réponse
+            </summary>
+        </member>
+        <member name="F:MediaTekDocuments.dal.Access.GET">
+            <summary>
+            méthode HTTP pour select
+            </summary>
+        </member>
+        <member name="F:MediaTekDocuments.dal.Access.POST">
+            <summary>
+            méthode HTTP pour insert
+            </summary>
+        </member>
+        <member name="F:MediaTekDocuments.dal.Access.PUT">
+            <summary>
+            méthode HTTP pour update
+            </summary>
+        </member>
+        <member name="F:MediaTekDocuments.dal.Access.DELETE">
+            <summary>
+            méthode HTTP pour delete
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.#ctor">
+            <summary>
+            Méthode privée pour créer un singleton
+            initialise l'accès à l'API
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetInstance">
+            <summary>
+            Création et retour de l'instance unique de la classe
+            </summary>
+            <returns>instance unique de la classe</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetAllGenres">
+            <summary>
+            Retourne tous les genres à partir de la BDD
+            </summary>
+            <returns>Liste d'objets Genre</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetAllRayons">
+            <summary>
+            Retourne tous les rayons à partir de la BDD
+            </summary>
+            <returns>Liste d'objets Rayon</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetAllPublics">
+            <summary>
+            Retourne toutes les catégories de public à partir de la BDD
+            </summary>
+            <returns>Liste d'objets Public</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetAllLivres">
+            <summary>
+            Retourne toutes les livres à partir de la BDD
+            </summary>
+            <returns>Liste d'objets Livre</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetAllDvd">
+            <summary>
+            Retourne toutes les dvd à partir de la BDD
+            </summary>
+            <returns>Liste d'objets Dvd</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetAllRevues">
+            <summary>
+            Retourne toutes les revues à partir de la BDD
+            </summary>
+            <returns>Liste d'objets Revue</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetExemplairesRevue(System.String)">
+            <summary>
+            Retourne les exemplaires d'une revue
+            </summary>
+            <param name="idDocument">id de la revue concernée</param>
+            <returns>Liste d'objets Exemplaire</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.CreerExemplaire(MediaTekDocuments.model.Exemplaire)">
+            <summary>
+            ecriture d'un exemplaire en base de données
+            </summary>
+            <param name="exemplaire">exemplaire à insérer</param>
+            <returns>true si l'insertion a pu se faire (retour != null)</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetAllSuivis">
+            <summary>
+            Retourne toutes les étapes de suivi depuis la BDD
+            </summary>
+            <returns>Liste d'objets Suivi (via Categorie)</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetAllCommandesDocument">
+            <summary>
+            Retourne toutes les commandes de livres/DVD (sans filtre)
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetCommandesDocument(System.String)">
+            <summary>
+            Retourne toutes les commandes d'un livre ou DVD
+            </summary>
+            <param name="idLivreDvd">identifiant du livre ou DVD</param>
+            <returns>Liste d'objets CommandeDocument</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetNextCommandeId">
+            <summary>
+            Retourne le prochain identifiant disponible pour une commande
+            </summary>
+            <returns>Identifiant au format "00001"</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.CreerCommande(MediaTekDocuments.model.CommandeDocument)">
+            <summary>
+            Crée une commande : insère dans commande puis dans commandedocument (idSuivi = "en cours")
+            </summary>
+            <param name="commande">objet CommandeDocument à créer</param>
+            <returns>true si les deux insertions ont réussi</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.ModifierSuiviCommande(System.String,System.String)">
+            <summary>
+            Modifie l'étape de suivi d'une commande
+            </summary>
+            <param name="idCommande">identifiant de la commande</param>
+            <param name="idSuivi">identifiant du nouvel état de suivi</param>
+            <returns>true si la modification a réussi</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.SupprimerCommande(System.String)">
+            <summary>
+            Supprime une commande (le trigger BDD supprime aussi dans commandedocument)
+            </summary>
+            <param name="idCommande">identifiant de la commande à supprimer</param>
+            <returns>true si la suppression a réussi</returns>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetAllCommandesAbonnement">
+            <summary>
+            Retourne tous les abonnements de revues (sans filtre)
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetCommandesRevue(System.String)">
+            <summary>
+            Retourne toutes les commandes d'abonnement d'une revue
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.CreerAbonnement(MediaTekDocuments.model.CommandeAbonnement)">
+            <summary>
+            Crée un abonnement : insère dans commande puis dans abonnement
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.SupprimerAbonnement(System.String)">
+            <summary>
+            Supprime un abonnement (le CASCADE supprime aussi dans abonnement)
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetRevuesAbonnementExpirant">
+            <summary>
+            Retourne les revues dont l'abonnement se termine dans moins de 30 jours
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.dal.Access.GetUtilisateur(System.String,System.String)">
+            <summary>
+            Retourne l'utilisateur correspondant au login et mot de passe, ou null si introuvable
+            </summary>
+            <param name="login">login de l'utilisateur</param>
+            <param name="pwd">mot de passe de l'utilisateur</param>
+            <returns>Objet Utilisateur ou null</returns>
+        </member>
+        <member name="T:MediaTekDocuments.dal.Access.NextId">
+            <summary>
+            Classe interne pour désérialiser le prochain ID de commande
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MediaTekDocuments.dal.Access.TraitementRecup``1(System.String,System.String,System.String)" -->
+        <member name="M:MediaTekDocuments.dal.Access.convertToJson(System.Object,System.Object)">
+            <summary>
+            Convertit en json un couple nom/valeur
+            </summary>
+            <param name="nom"></param>
+            <param name="valeur"></param>
+            <returns>couple au format json</returns>
+        </member>
+        <member name="T:MediaTekDocuments.dal.Access.CustomDateTimeConverter">
+            <summary>
+            Modification du convertisseur Json pour gérer le format de date
+            </summary>
+        </member>
+        <member name="T:MediaTekDocuments.dal.Access.CustomBooleanJsonConverter">
+            <summary>
+            Modification du convertisseur Json pour prendre en compte les booléens
+            classe trouvée sur le site :
+            https://www.thecodebuzz.com/newtonsoft-jsonreaderexception-could-not-convert-string-to-boolean/
+            </summary>
+        </member>
+        <member name="T:MediaTekDocuments.view.FrmAuthentification">
+            <summary>
+            Fenêtre d'authentification : premier écran affiché au démarrage
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.view.FrmAuthentification.UtilisateurConnecte">
+            <summary>
+            Utilisateur authentifié, accessible après DialogResult.OK
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmAuthentification.BtnConnexion_Click(System.Object,System.EventArgs)">
+            <summary>
+            Tente d'authentifier l'utilisateur avec les identifiants saisis
+            </summary>
+        </member>
+        <member name="T:MediaTekDocuments.view.FrmMediatek">
+            <summary>
+            Classe d'affichage
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.#ctor(MediaTekDocuments.model.Utilisateur)">
+            <summary>
+            Constructeur : création du contrôleur lié à ce formulaire
+            Applique les restrictions d'accès selon le service de l'utilisateur connecté
+            </summary>
+            <param name="utilisateur">utilisateur authentifié</param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.AppliquerDroitsAcces(MediaTekDocuments.model.Utilisateur)">
+            <summary>
+            Rend invisibles les onglets non accessibles selon le service de l'utilisateur
+            Service Diffusion (00001) : accès complet
+            Service Prêt (00002) : documents uniquement, onglets commandes masqués
+            </summary>
+            <param name="utilisateur">utilisateur authentifié</param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.RemplirComboCategorie(System.Collections.Generic.List{MediaTekDocuments.model.Categorie},System.Windows.Forms.BindingSource,System.Windows.Forms.ComboBox)">
+            <summary>
+            Rempli un des 3 combo (genre, public, rayon)
+            </summary>
+            <param name="lesCategories">liste des objets de type Genre ou Public ou Rayon</param>
+            <param name="bdg">bindingsource contenant les informations</param>
+            <param name="cbx">combobox à remplir</param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.TabLivres_Enter(System.Object,System.EventArgs)">
+            <summary>
+            Ouverture de l'onglet Livres : 
+            appel des méthodes pour remplir le datagrid des livres et des combos (genre, rayon, public)
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.RemplirLivresListe(System.Collections.Generic.List{MediaTekDocuments.model.Livre})">
+            <summary>
+            Remplit le dategrid avec la liste reçue en paramètre
+            </summary>
+            <param name="livres">liste de livres</param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.BtnLivresNumRecherche_Click(System.Object,System.EventArgs)">
+            <summary>
+            Recherche et affichage du livre dont on a saisi le numéro.
+            Si non trouvé, affichage d'un MessageBox.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.TxbLivresTitreRecherche_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Recherche et affichage des livres dont le titre matche acec la saisie.
+            Cette procédure est exécutée à chaque ajout ou suppression de caractère
+            dans le textBox de saisie.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.AfficheLivresInfos(MediaTekDocuments.model.Livre)">
+            <summary>
+            Affichage des informations du livre sélectionné
+            </summary>
+            <param name="livre">le livre</param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.VideLivresInfos">
+            <summary>
+            Vide les zones d'affichage des informations du livre
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.CbxLivresGenres_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Filtre sur le genre
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.CbxLivresPublics_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Filtre sur la catégorie de public
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.CbxLivresRayons_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Filtre sur le rayon
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.DgvLivresListe_SelectionChanged(System.Object,System.EventArgs)">
+            <summary>
+            Sur la sélection d'une ligne ou cellule dans le grid
+            affichage des informations du livre
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.BtnLivresAnnulPublics_Click(System.Object,System.EventArgs)">
+            <summary>
+            Sur le clic du bouton d'annulation, affichage de la liste complète des livres
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.BtnLivresAnnulRayons_Click(System.Object,System.EventArgs)">
+            <summary>
+            Sur le clic du bouton d'annulation, affichage de la liste complète des livres
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.BtnLivresAnnulGenres_Click(System.Object,System.EventArgs)">
+            <summary>
+            Sur le clic du bouton d'annulation, affichage de la liste complète des livres
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.RemplirLivresListeComplete">
+            <summary>
+            Affichage de la liste complète des livres
+            et annulation de toutes les recherches et filtres
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.VideLivresZones">
+            <summary>
+            vide les zones de recherche et de filtre
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.DgvLivresListe_ColumnHeaderMouseClick(System.Object,System.Windows.Forms.DataGridViewCellMouseEventArgs)">
+            <summary>
+            Tri sur les colonnes
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.tabDvd_Enter(System.Object,System.EventArgs)">
+            <summary>
+            Ouverture de l'onglet Dvds : 
+            appel des méthodes pour remplir le datagrid des dvd et des combos (genre, rayon, public)
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.RemplirDvdListe(System.Collections.Generic.List{MediaTekDocuments.model.Dvd})">
+            <summary>
+            Remplit le dategrid avec la liste reçue en paramètre
+            </summary>
+            <param name="Dvds">liste de dvd</param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.btnDvdNumRecherche_Click(System.Object,System.EventArgs)">
+            <summary>
+            Recherche et affichage du Dvd dont on a saisi le numéro.
+            Si non trouvé, affichage d'un MessageBox.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.txbDvdTitreRecherche_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Recherche et affichage des Dvd dont le titre matche acec la saisie.
+            Cette procédure est exécutée à chaque ajout ou suppression de caractère
+            dans le textBox de saisie.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.AfficheDvdInfos(MediaTekDocuments.model.Dvd)">
+            <summary>
+            Affichage des informations du dvd sélectionné
+            </summary>
+            <param name="dvd">le dvd</param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.VideDvdInfos">
+            <summary>
+            Vide les zones d'affichage des informations du dvd
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.cbxDvdGenres_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Filtre sur le genre
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.cbxDvdPublics_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Filtre sur la catégorie de public
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.cbxDvdRayons_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Filtre sur le rayon
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.dgvDvdListe_SelectionChanged(System.Object,System.EventArgs)">
+            <summary>
+            Sur la sélection d'une ligne ou cellule dans le grid
+            affichage des informations du dvd
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.btnDvdAnnulPublics_Click(System.Object,System.EventArgs)">
+            <summary>
+            Sur le clic du bouton d'annulation, affichage de la liste complète des Dvd
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.btnDvdAnnulRayons_Click(System.Object,System.EventArgs)">
+            <summary>
+            Sur le clic du bouton d'annulation, affichage de la liste complète des Dvd
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.btnDvdAnnulGenres_Click(System.Object,System.EventArgs)">
+            <summary>
+            Sur le clic du bouton d'annulation, affichage de la liste complète des Dvd
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.RemplirDvdListeComplete">
+            <summary>
+            Affichage de la liste complète des Dvd
+            et annulation de toutes les recherches et filtres
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.VideDvdZones">
+            <summary>
+            vide les zones de recherche et de filtre
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.dgvDvdListe_ColumnHeaderMouseClick(System.Object,System.Windows.Forms.DataGridViewCellMouseEventArgs)">
+            <summary>
+            Tri sur les colonnes
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.tabRevues_Enter(System.Object,System.EventArgs)">
+            <summary>
+            Ouverture de l'onglet Revues : 
+            appel des méthodes pour remplir le datagrid des revues et des combos (genre, rayon, public)
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.RemplirRevuesListe(System.Collections.Generic.List{MediaTekDocuments.model.Revue})">
+            <summary>
+            Remplit le dategrid avec la liste reçue en paramètre
+            </summary>
+            <param name="revues"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.btnRevuesNumRecherche_Click(System.Object,System.EventArgs)">
+            <summary>
+            Recherche et affichage de la revue dont on a saisi le numéro.
+            Si non trouvé, affichage d'un MessageBox.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.txbRevuesTitreRecherche_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Recherche et affichage des revues dont le titre matche acec la saisie.
+            Cette procédure est exécutée à chaque ajout ou suppression de caractère
+            dans le textBox de saisie.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.AfficheRevuesInfos(MediaTekDocuments.model.Revue)">
+            <summary>
+            Affichage des informations de la revue sélectionné
+            </summary>
+            <param name="revue">la revue</param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.VideRevuesInfos">
+            <summary>
+            Vide les zones d'affichage des informations de la reuve
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.cbxRevuesGenres_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Filtre sur le genre
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.cbxRevuesPublics_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Filtre sur la catégorie de public
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.cbxRevuesRayons_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Filtre sur le rayon
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.dgvRevuesListe_SelectionChanged(System.Object,System.EventArgs)">
+            <summary>
+            Sur la sélection d'une ligne ou cellule dans le grid
+            affichage des informations de la revue
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.btnRevuesAnnulPublics_Click(System.Object,System.EventArgs)">
+            <summary>
+            Sur le clic du bouton d'annulation, affichage de la liste complète des revues
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.btnRevuesAnnulRayons_Click(System.Object,System.EventArgs)">
+            <summary>
+            Sur le clic du bouton d'annulation, affichage de la liste complète des revues
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.btnRevuesAnnulGenres_Click(System.Object,System.EventArgs)">
+            <summary>
+            Sur le clic du bouton d'annulation, affichage de la liste complète des revues
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.RemplirRevuesListeComplete">
+            <summary>
+            Affichage de la liste complète des revues
+            et annulation de toutes les recherches et filtres
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.VideRevuesZones">
+            <summary>
+            vide les zones de recherche et de filtre
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.dgvRevuesListe_ColumnHeaderMouseClick(System.Object,System.Windows.Forms.DataGridViewCellMouseEventArgs)">
+            <summary>
+            Tri sur les colonnes
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.tabReceptionRevue_Enter(System.Object,System.EventArgs)">
+            <summary>
+            Ouverture de l'onglet : récupère le revues et vide tous les champs.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.RemplirReceptionExemplairesListe(System.Collections.Generic.List{MediaTekDocuments.model.Exemplaire})">
+            <summary>
+            Remplit le dategrid des exemplaires avec la liste reçue en paramètre
+            </summary>
+            <param name="exemplaires">liste d'exemplaires</param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.btnReceptionRechercher_Click(System.Object,System.EventArgs)">
+            <summary>
+            Recherche d'un numéro de revue et affiche ses informations
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.txbReceptionRevueNumero_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Si le numéro de revue est modifié, la zone de l'exemplaire est vidée et inactive
+            les informations de la revue son aussi effacées
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.AfficheReceptionRevueInfos(MediaTekDocuments.model.Revue)">
+            <summary>
+            Affichage des informations de la revue sélectionnée et les exemplaires
+            </summary>
+            <param name="revue">la revue</param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.AfficheReceptionExemplairesRevue">
+            <summary>
+            Récupère et affiche les exemplaires d'une revue
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.AccesReceptionExemplaireGroupBox(System.Boolean)">
+            <summary>
+            Permet ou interdit l'accès à la gestion de la réception d'un exemplaire
+            et vide les objets graphiques
+            </summary>
+            <param name="acces">true ou false</param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.btnReceptionExemplaireImage_Click(System.Object,System.EventArgs)">
+            <summary>
+            Recherche image sur disque (pour l'exemplaire à insérer)
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.btnReceptionExemplaireValider_Click(System.Object,System.EventArgs)">
+            <summary>
+            Enregistrement du nouvel exemplaire
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.dgvExemplairesListe_ColumnHeaderMouseClick(System.Object,System.Windows.Forms.DataGridViewCellMouseEventArgs)">
+            <summary>
+            Tri sur une colonne
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.dgvReceptionExemplairesListe_SelectionChanged(System.Object,System.EventArgs)">
+            <summary>
+            affichage de l'image de l'exemplaire suite à la sélection d'un exemplaire dans la liste
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:MediaTekDocuments.view.FrmMediatek.components">
+            <summary>
+            Variable nécessaire au concepteur.
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.Dispose(System.Boolean)">
+            <summary>
+            Nettoyage des ressources utilisées.
+            </summary>
+            <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
+        </member>
+        <member name="M:MediaTekDocuments.view.FrmMediatek.InitializeComponent">
+            <summary>
+            Méthode requise pour la prise en charge du concepteur - ne modifiez pas
+            le contenu de cette méthode avec l'éditeur de code.
+            </summary>
+        </member>
+        <member name="T:MediaTekDocuments.model.Categorie">
+            <summary>
+            Classe métier Categorie (réunit les informations des classes Public, Genre et Rayon)
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Categorie.Id">
+            <summary>
+            Identifiant de la catégorie
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Categorie.Libelle">
+            <summary>
+            Libellé de la catégorie
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.Categorie.#ctor(System.String,System.String)">
+            <summary>
+            Crée une nouvelle catégorie
+            </summary>
+            <param name="id">identifiant de la catégorie</param>
+            <param name="libelle">libellé de la catégorie</param>
+        </member>
+        <member name="M:MediaTekDocuments.model.Categorie.ToString">
+            <summary>
+            Récupération du libellé pour l'affichage dans les combos
+            </summary>
+            <returns>Libelle</returns>
+        </member>
+        <member name="T:MediaTekDocuments.model.CommandeAbonnement">
+            <summary>
+            Classe métier CommandeAbonnement : commande d'abonnement à une revue
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.CommandeAbonnement.Id">
+            <summary>Identifiant de la commande</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.CommandeAbonnement.DateCommande">
+            <summary>Date de la commande</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.CommandeAbonnement.Montant">
+            <summary>Montant de l'abonnement</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.CommandeAbonnement.DateFinAbonnement">
+            <summary>Date de fin de l'abonnement</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.CommandeAbonnement.IdRevue">
+            <summary>Identifiant de la revue</summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.CommandeAbonnement.#ctor(System.String,System.DateTime,System.Double,System.DateTime,System.String)">
+            <summary>
+            Crée une nouvelle commande d'abonnement
+            </summary>
+            <param name="id">identifiant de la commande</param>
+            <param name="dateCommande">date de la commande</param>
+            <param name="montant">montant</param>
+            <param name="dateFinAbonnement">date de fin d'abonnement</param>
+            <param name="idRevue">identifiant de la revue</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.CommandeDocument">
+            <summary>
+            Classe métier CommandeDocument : commande d'un livre ou d'un dvd
+            Combine les données de commande, commandedocument et suivi
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.CommandeDocument.Id">
+            <summary>Identifiant de la commande</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.CommandeDocument.DateCommande">
+            <summary>Date de la commande</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.CommandeDocument.Montant">
+            <summary>Montant de la commande</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.CommandeDocument.NbExemplaire">
+            <summary>Nombre d'exemplaires commandés</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.CommandeDocument.IdLivreDvd">
+            <summary>Identifiant du livre ou dvd commandé</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.CommandeDocument.IdSuivi">
+            <summary>Identifiant de l'étape de suivi</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.CommandeDocument.LibelleSuivi">
+            <summary>Libellé de l'étape de suivi</summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.CommandeDocument.#ctor(System.String,System.DateTime,System.Double,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Crée une nouvelle commande de document
+            </summary>
+            <param name="id">identifiant de la commande</param>
+            <param name="dateCommande">date de la commande</param>
+            <param name="montant">montant</param>
+            <param name="nbExemplaire">nombre d'exemplaires</param>
+            <param name="idLivreDvd">identifiant du livre ou dvd</param>
+            <param name="idSuivi">identifiant de l'étape de suivi</param>
+            <param name="libelleSuivi">libellé de l'étape de suivi</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.Document">
+            <summary>
+            Classe métier Document (réunit les infomations communes à tous les documents : Livre, Revue, Dvd)
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Document.Id">
+            <summary>Identifiant du document</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Document.Titre">
+            <summary>Titre du document</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Document.Image">
+            <summary>Chemin vers l'image du document</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Document.IdGenre">
+            <summary>Identifiant du genre</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Document.Genre">
+            <summary>Libellé du genre</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Document.IdPublic">
+            <summary>Identifiant du public cible</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Document.Public">
+            <summary>Libellé du public cible</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Document.IdRayon">
+            <summary>Identifiant du rayon</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Document.Rayon">
+            <summary>Libellé du rayon</summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.Document.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Crée un nouveau document
+            </summary>
+            <param name="id">identifiant</param>
+            <param name="titre">titre</param>
+            <param name="image">chemin de l'image</param>
+            <param name="idGenre">identifiant du genre</param>
+            <param name="genre">libellé du genre</param>
+            <param name="idPublic">identifiant du public</param>
+            <param name="lePublic">libellé du public</param>
+            <param name="idRayon">identifiant du rayon</param>
+            <param name="rayon">libellé du rayon</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.Dvd">
+            <summary>
+            Classe métier Dvd hérite de LivreDvd : contient des propriétés spécifiques aux dvd
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Dvd.Duree">
+            <summary>Durée du dvd en minutes</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Dvd.Realisateur">
+            <summary>Nom du réalisateur</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Dvd.Synopsis">
+            <summary>Synopsis du dvd</summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.Dvd.#ctor(System.String,System.String,System.String,System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Crée un nouveau dvd
+            </summary>
+            <param name="id">identifiant</param>
+            <param name="titre">titre</param>
+            <param name="image">chemin de l'image</param>
+            <param name="duree">durée en minutes</param>
+            <param name="realisateur">réalisateur</param>
+            <param name="synopsis">synopsis</param>
+            <param name="idGenre">identifiant du genre</param>
+            <param name="genre">libellé du genre</param>
+            <param name="idPublic">identifiant du public</param>
+            <param name="lePublic">libellé du public</param>
+            <param name="idRayon">identifiant du rayon</param>
+            <param name="rayon">libellé du rayon</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.Etat">
+            <summary>
+            Classe métier Etat (état d'usure d'un document)
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Etat.Id">
+            <summary>
+            Identifiant de l'état
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Etat.Libelle">
+            <summary>
+            Libellé de l'état
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.Etat.#ctor(System.String,System.String)">
+            <summary>
+            Crée un nouvel état
+            </summary>
+            <param name="id">identifiant de l'état</param>
+            <param name="libelle">libellé de l'état</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.Exemplaire">
+            <summary>
+            Classe métier Exemplaire (exemplaire d'une revue)
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Exemplaire.Numero">
+            <summary>Numéro de l'exemplaire</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Exemplaire.Photo">
+            <summary>Chemin vers la photo de l'exemplaire</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Exemplaire.DateAchat">
+            <summary>Date d'achat de l'exemplaire</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Exemplaire.IdEtat">
+            <summary>Identifiant de l'état de l'exemplaire</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Exemplaire.Id">
+            <summary>Identifiant du document auquel appartient l'exemplaire</summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.Exemplaire.#ctor(System.Int32,System.DateTime,System.String,System.String,System.String)">
+            <summary>
+            Crée un nouvel exemplaire
+            </summary>
+            <param name="numero">numéro de l'exemplaire</param>
+            <param name="dateAchat">date d'achat</param>
+            <param name="photo">chemin de la photo</param>
+            <param name="idEtat">identifiant de l'état</param>
+            <param name="idDocument">identifiant du document</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.Genre">
+            <summary>
+            Classe métier Genre : hérite de Categorie
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.Genre.#ctor(System.String,System.String)">
+            <summary>
+            Crée un nouveau genre
+            </summary>
+            <param name="id">identifiant du genre</param>
+            <param name="libelle">libellé du genre</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.Livre">
+            <summary>
+            Classe métier Livre hérite de LivreDvd : contient des propriétés spécifiques aux livres
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Livre.Isbn">
+            <summary>Numéro ISBN du livre</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Livre.Auteur">
+            <summary>Nom de l'auteur</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Livre.Collection">
+            <summary>Nom de la collection</summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.Livre.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Crée un nouveau livre
+            </summary>
+            <param name="id">identifiant</param>
+            <param name="titre">titre</param>
+            <param name="image">chemin de l'image</param>
+            <param name="isbn">numéro ISBN</param>
+            <param name="auteur">auteur</param>
+            <param name="collection">collection</param>
+            <param name="idGenre">identifiant du genre</param>
+            <param name="genre">libellé du genre</param>
+            <param name="idPublic">identifiant du public</param>
+            <param name="lePublic">libellé du public</param>
+            <param name="idRayon">identifiant du rayon</param>
+            <param name="rayon">libellé du rayon</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.LivreDvd">
+            <summary>
+            Classe métier LivreDvd hérite de Document
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.LivreDvd.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Initialise les propriétés communes aux livres et dvd
+            </summary>
+            <param name="id">identifiant</param>
+            <param name="titre">titre</param>
+            <param name="image">chemin de l'image</param>
+            <param name="idGenre">identifiant du genre</param>
+            <param name="genre">libellé du genre</param>
+            <param name="idPublic">identifiant du public</param>
+            <param name="lePublic">libellé du public</param>
+            <param name="idRayon">identifiant du rayon</param>
+            <param name="rayon">libellé du rayon</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.Public">
+            <summary>
+            Classe métier Public (public concerné par le document) hérite de Categorie
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.Public.#ctor(System.String,System.String)">
+            <summary>
+            Crée un nouveau public cible
+            </summary>
+            <param name="id">identifiant du public</param>
+            <param name="libelle">libellé du public</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.Rayon">
+            <summary>
+            Classe métier Rayon (rayon de classement du document) hérite de Categorie
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.Rayon.#ctor(System.String,System.String)">
+            <summary>
+            Crée un nouveau rayon
+            </summary>
+            <param name="id">identifiant du rayon</param>
+            <param name="libelle">libellé du rayon</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.Revue">
+            <summary>
+            Classe métier Revue hérite de Document : contient des propriétés spécifiques aux revues
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Revue.Periodicite">
+            <summary>Périodicité de la revue (ex. : Mensuelle, Hebdomadaire)</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Revue.DelaiMiseADispo">
+            <summary>Délai de mise à disposition en jours</summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.Revue.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Crée une nouvelle revue
+            </summary>
+            <param name="id">identifiant</param>
+            <param name="titre">titre</param>
+            <param name="image">chemin de l'image</param>
+            <param name="idGenre">identifiant du genre</param>
+            <param name="genre">libellé du genre</param>
+            <param name="idPublic">identifiant du public</param>
+            <param name="lePublic">libellé du public</param>
+            <param name="idRayon">identifiant du rayon</param>
+            <param name="rayon">libellé du rayon</param>
+            <param name="periodicite">périodicité</param>
+            <param name="delaiMiseADispo">délai de mise à disposition en jours</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.RevueEnAlerte">
+            <summary>
+            Classe métier RevueEnAlerte : revue dont l'abonnement expire bientôt
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.RevueEnAlerte.Titre">
+            <summary>Titre de la revue</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.RevueEnAlerte.DateFinAbonnement">
+            <summary>Date de fin de l'abonnement</summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.RevueEnAlerte.#ctor(System.String,System.DateTime)">
+            <summary>
+            Crée une nouvelle revue en alerte
+            </summary>
+            <param name="titre">titre de la revue</param>
+            <param name="dateFinAbonnement">date de fin d'abonnement</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.Suivi">
+            <summary>
+            Classe métier Suivi : étapes de suivi d'une commande de livre ou dvd
+            Hérite de Categorie pour être utilisable dans les ComboBox
+            </summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.Suivi.#ctor(System.String,System.String)">
+            <summary>
+            Crée une nouvelle étape de suivi
+            </summary>
+            <param name="id">identifiant de l'étape</param>
+            <param name="libelle">libellé de l'étape</param>
+        </member>
+        <member name="T:MediaTekDocuments.model.Utilisateur">
+            <summary>
+            Classe métier Utilisateur : contient les informations de l'utilisateur connecté
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Utilisateur.Login">
+            <summary>Login de l'utilisateur</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Utilisateur.Nom">
+            <summary>Nom de l'utilisateur</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Utilisateur.Prenom">
+            <summary>Prénom de l'utilisateur</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Utilisateur.IdService">
+            <summary>Identifiant du service de l'utilisateur</summary>
+        </member>
+        <member name="P:MediaTekDocuments.model.Utilisateur.Service">
+            <summary>Libellé du service de l'utilisateur</summary>
+        </member>
+        <member name="M:MediaTekDocuments.model.Utilisateur.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Crée un nouvel utilisateur
+            </summary>
+            <param name="login">login</param>
+            <param name="nom">nom</param>
+            <param name="prenom">prénom</param>
+            <param name="idService">identifiant du service</param>
+            <param name="service">libellé du service</param>
+        </member>
+        <member name="M:MediaTekDocuments.Program.Main">
+            <summary>
+            Point d'entrée principal de l'application.
+            </summary>
+        </member>
+        <member name="T:MediaTekDocuments.Properties.Resources">
+            <summary>
+              Une classe de ressource fortement typée destinée, entre autres, à la consultation des chaînes localisées.
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.Properties.Resources.ResourceManager">
+            <summary>
+              Retourne l'instance ResourceManager mise en cache utilisée par cette classe.
+            </summary>
+        </member>
+        <member name="P:MediaTekDocuments.Properties.Resources.Culture">
+            <summary>
+              Remplace la propriété CurrentUICulture du thread actuel pour toutes
+              les recherches de ressources à l'aide de cette classe de ressource fortement typée.
+            </summary>
+        </member>
+    </members>
+</doc>
