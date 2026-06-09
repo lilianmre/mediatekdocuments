@@ -1377,6 +1377,18 @@ namespace MediaTekDocuments.view
                     dgvCommandesLivres.Columns["NbExemplaire"].HeaderText = "Nb exemplaires";
                 if (dgvCommandesLivres.Columns.Contains("LibelleSuivi"))
                     dgvCommandesLivres.Columns["LibelleSuivi"].HeaderText = "Suivi";
+                if (dgvCommandesLivres.Columns.Contains("ColTitreLivre"))
+                    dgvCommandesLivres.Columns.Remove("ColTitreLivre");
+                var colTitreLivre = new DataGridViewTextBoxColumn { Name = "ColTitreLivre", HeaderText = "Titre du livre", ReadOnly = true };
+                dgvCommandesLivres.Columns.Add(colTitreLivre);
+                foreach (DataGridViewRow row in dgvCommandesLivres.Rows)
+                {
+                    if (row.DataBoundItem is CommandeDocument cmd)
+                    {
+                        var livre = lesLivresPourCommande.Find(l => l.Id == cmd.IdLivreDvd);
+                        row.Cells["ColTitreLivre"].Value = livre?.Titre ?? cmd.IdLivreDvd;
+                    }
+                }
                 dgvCommandesLivres.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             }
         }
@@ -1658,6 +1670,18 @@ namespace MediaTekDocuments.view
                     dgvCommandesDvd.Columns["NbExemplaire"].HeaderText = "Nb exemplaires";
                 if (dgvCommandesDvd.Columns.Contains("LibelleSuivi"))
                     dgvCommandesDvd.Columns["LibelleSuivi"].HeaderText = "Suivi";
+                if (dgvCommandesDvd.Columns.Contains("ColTitreDvd"))
+                    dgvCommandesDvd.Columns.Remove("ColTitreDvd");
+                var colTitreDvd = new DataGridViewTextBoxColumn { Name = "ColTitreDvd", HeaderText = "Titre du DVD", ReadOnly = true };
+                dgvCommandesDvd.Columns.Add(colTitreDvd);
+                foreach (DataGridViewRow row in dgvCommandesDvd.Rows)
+                {
+                    if (row.DataBoundItem is CommandeDocument cmd)
+                    {
+                        var dvd = lesDvdPourCommande.Find(d => d.Id == cmd.IdLivreDvd);
+                        row.Cells["ColTitreDvd"].Value = dvd?.Titre ?? cmd.IdLivreDvd;
+                    }
+                }
                 dgvCommandesDvd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             }
         }
@@ -1929,6 +1953,18 @@ namespace MediaTekDocuments.view
                     dgvCommandesRevues.Columns["Montant"].HeaderText = "Montant (€)";
                 if (dgvCommandesRevues.Columns.Contains("DateFinAbonnement"))
                     dgvCommandesRevues.Columns["DateFinAbonnement"].HeaderText = "Fin abonnement";
+                if (dgvCommandesRevues.Columns.Contains("ColTitreRevue"))
+                    dgvCommandesRevues.Columns.Remove("ColTitreRevue");
+                var colTitreRevue = new DataGridViewTextBoxColumn { Name = "ColTitreRevue", HeaderText = "Titre de la revue", ReadOnly = true };
+                dgvCommandesRevues.Columns.Add(colTitreRevue);
+                foreach (DataGridViewRow row in dgvCommandesRevues.Rows)
+                {
+                    if (row.DataBoundItem is CommandeAbonnement abo)
+                    {
+                        var revue = lesRevuesPourAbonnement.Find(r => r.Id == abo.IdRevue);
+                        row.Cells["ColTitreRevue"].Value = revue?.Titre ?? abo.IdRevue;
+                    }
+                }
                 dgvCommandesRevues.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             }
         }

@@ -87,8 +87,9 @@ namespace MediaTekDocuments.manager
                 default:
                     return new JObject();
             }
-            // récupération de l'information retournée par l'api
-            var json = httpResponse.Content.ReadAsStringAsync().Result; 
+            // récupération de l'information retournée par l'api (décodage forcé en UTF-8)
+            var bytes = httpResponse.Content.ReadAsByteArrayAsync().Result;
+            var json = System.Text.Encoding.UTF8.GetString(bytes);
             return JObject.Parse(json);
         }
 
