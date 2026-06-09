@@ -4,11 +4,11 @@ Le dépôt d'origine, qui contient dans son readme la présentation de l'applica
 https://github.com/CNED-SLAM/MediaTekDocuments
 ## Présentation
 Cette version ajoute à l'application d'origine la gestion complète des commandes de livres, de DVD et des abonnements aux revues, ainsi qu'un système d'authentification avec contrôle d'accès par service. Des améliorations de qualité ont également été apportées : sécurisation des identifiants API, intégration des logs Serilog et corrections SonarLint.<br>
-![img1](https://github.com/user-attachments/assets/img_presentation)
+<img width="1107" height="863" alt="Capture d&#39;écran 2026-06-09 130058" src="https://github.com/user-attachments/assets/7a7c3e86-2d43-444a-97e9-4c6d841491e2" />
 <br>L'application comporte toujours une seule fenêtre divisée en plusieurs onglets. Trois nouveaux onglets ont été ajoutés : "Commandes Livres", "Commandes DVD" et "Commandes Revues".
 ## Authentification
 Au démarrage, une fenêtre d'authentification est affichée avant l'accès à l'application principale. L'utilisateur doit saisir son login et son mot de passe.<br>
-![img2](https://github.com/user-attachments/assets/img_auth)
+<img width="459" height="301" alt="Capture d&#39;écran 2026-06-09 130033" src="https://github.com/user-attachments/assets/b340ce7f-915a-42e5-b374-5fb2913af0e4" />
 <br>Selon le service auquel appartient l'utilisateur, les accès sont restreints :<br>
 <strong>Service Diffusion :</strong> accès complet à tous les onglets.<br>
 <strong>Service Prêt :</strong> accès aux onglets documents uniquement (Livres, DVD, Revues, Parutions). Les onglets de commandes sont masqués.<br>
@@ -24,7 +24,7 @@ Cette partie affiche le détail de la commande sélectionnée dans la liste et p
 <strong>Ajouter une commande :</strong> saisie du numéro de commande, de la date, du montant et du nombre d'exemplaires commandés, puis validation.<br>
 <strong>Modifier le suivi :</strong> le combo "Suivi" permet de faire progresser une commande selon les étapes : En cours → Livrée → Réglée. Les transitions sont contrôlées : on ne peut avancer que d'une étape à la fois et on ne peut pas revenir en arrière.<br>
 <strong>Supprimer une commande :</strong> uniquement possible si la commande est encore "En cours". La suppression est interdite si la commande est à l'état Livrée ou Réglée.<br>
-![img3](https://github.com/user-attachments/assets/img_commandes_livres)
+<img width="1101" height="861" alt="Capture d&#39;écran 2026-06-09 130121" src="https://github.com/user-attachments/assets/01523b40-7f5f-465b-94c1-fa00b508f5cd" />
 ### Onglet 6 : Commandes DVD
 Le fonctionnement est identique à l'onglet "Commandes Livres", mais appliqué aux DVD.
 ### Onglet 7 : Commandes Revues
@@ -35,13 +35,13 @@ Cette partie permet, à partir de la saisie d'un numéro de revue (puis en cliqu
 #### Partie "Abonnements de la revue"
 <strong>Ajouter un abonnement :</strong> saisie du numéro de commande, de la date, du montant et de la date de fin d'abonnement, puis validation.<br>
 <strong>Supprimer un abonnement :</strong> la suppression est impossible si des parutions reçues appartiennent à la période couverte par l'abonnement (contrôle "ParutionDansAbonnement").<br>
-![img4](https://github.com/user-attachments/assets/img_commandes_revues)
+<img width="1103" height="859" alt="Capture d&#39;écran 2026-06-09 130139" src="https://github.com/user-attachments/assets/dd6be62c-3abf-4b5f-a447-7f34d8cbc920" />
 ### Alerte abonnements expirants
 Au démarrage de l'application, et uniquement pour les utilisateurs du service Diffusion, une fenêtre d'alerte s'affiche automatiquement si des abonnements arrivent à expiration dans moins de 30 jours. Elle liste les revues concernées avec leur date de fin d'abonnement.<br>
-![img5](https://github.com/user-attachments/assets/img_alerte)
+<img width="613" height="407" alt="Capture d&#39;écran 2026-06-09 130051" src="https://github.com/user-attachments/assets/0ab2bb8d-d3c3-4b16-a9ed-7b5ab030e2db" />
 ## La base de données
 La base de données s'appuie sur la structure existante de mediatek86, à laquelle deux ensembles de tables ont été ajoutés.<br>
-![img6](https://github.com/user-attachments/assets/img_bdd)
+<img width="255" height="424" alt="Capture d&#39;écran 2026-06-09 130212" src="https://github.com/user-attachments/assets/5dfa92a5-2129-4843-ae9c-150a3b4ec432" />
 <br>
 <strong>Tables pour l'authentification :</strong><br>
 . La table <strong>service</strong> contient les différents services de la médiathèque (ex : Diffusion, Prêt).<br>
